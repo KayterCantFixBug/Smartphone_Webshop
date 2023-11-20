@@ -1,6 +1,5 @@
-package model;
+package models;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,6 +26,10 @@ public class User {
     @Column (name = "email")
     private String email;
 
+    @Column (name = "code")
+    private String code;
+    @Column (name = "image")
+    private String image;
     public User() {
 
     }

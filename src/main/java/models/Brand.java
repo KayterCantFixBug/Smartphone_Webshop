@@ -1,19 +1,18 @@
-package model;
+package models;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="roles")
-public class Role {
-    public static String ADMIN = "ADMIN";
-    public static String USER = "USER";
+@Table(name="brands")
+public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="role_id")
+    @Column (name = "brand_id")
     private Long id;
-
-    @Column(name="name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name ="country", nullable = false)
+    private String country;
 
     public Long getId() {
         return id;
@@ -29,5 +28,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
