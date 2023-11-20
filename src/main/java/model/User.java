@@ -1,4 +1,4 @@
-package models;
+package model;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
