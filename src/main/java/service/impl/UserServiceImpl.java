@@ -21,12 +21,16 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void delete(int id) {
-
+	public void delete(User user) {
+		userDAO.delete(user);
 	}
 
 	@Override
-	public User login(String username, String password) {
+	public User login(String email, String password) {
+		User user = this.findByEmail(email);
+		if (user != null && password.equals(user.getPassword())) {
+			return user;
+		}
 		return null;
 	}
 
@@ -50,7 +54,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<User> getAll() {
-		return null;
+		return userDAO.getAll();
 	}
 
 	@Override

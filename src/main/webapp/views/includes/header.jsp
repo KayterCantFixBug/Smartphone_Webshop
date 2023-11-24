@@ -44,27 +44,41 @@
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page"
 						href="${pageContext.servletContext.contextPath}/views/home.jsp">Home</a>
 					</li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> User </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">My Profile</a></li>
-							<li><a class="dropdown-item" href="#">Logout</a></li>
-						</ul></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page"
+						href="${pageContext.servletContext.contextPath}/views/cart.jsp">Cart</a>
+					</li>
 				</ul>
-				<div class="p-2">
-					<a class="nav-link active"
-						href="${pageContext.servletContext.contextPath}/views/home/login.jsp">Login</a>
-				</div>
-				<a class="btn btn-primary"
-					href="${pageContext.servletContext.contextPath}/views/home/register.jsp"
-					role="button">Register</a>
+				<c:choose>
+					<c:when test="${sessionScope.account != null}">
+						<div class="nav-item dropdown p-2">
+							<a class="nav-link dropdown-toggle" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"><b>${sessionScope.account.name}</b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">My Profile</a></li>
+								<li><a class="dropdown-item"
+									href="${pageContext.servletContext.contextPath}/logout">Logout</a></li>
+							</ul>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="p-2">
+							<a class="nav-link active"
+								href="${pageContext.servletContext.contextPath}/views/home/login.jsp">Login</a>
+						</div>
+						<a class="btn btn-primary"
+							href="${pageContext.servletContext.contextPath}/views/home/register.jsp"
+							role="button">Register</a>
+					</c:otherwise>
+				</c:choose>
 				<form class="d-flex p-2" role="search">
 					<input class="form-control me-2" type="search"
 						placeholder="Searching..." aria-label="Search">

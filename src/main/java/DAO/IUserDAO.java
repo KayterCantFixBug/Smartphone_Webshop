@@ -10,7 +10,7 @@ public interface IUserDAO {
 	User findByEmail(String email);
 	void insert(User user);
 	void update(User user);
-	void delete(int id);
+	void delete(User user);
 	boolean checkExistEmail(String email);
 	boolean checkExistPhone(String phoneNumber);
 }

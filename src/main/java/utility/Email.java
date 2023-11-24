@@ -15,9 +15,8 @@ public class Email {
 		return String.format("%06d", number);
 	}
 
-	public boolean sendEmail(User user) {
+	public boolean sendEmail(String toEmail, String title, String text) {
 		boolean test = false;
-		String toEmail = user.getEmail();
 		String fromEmail = "techgadgestore@gmail.com";
 		String password = "oiavazhxivkthmbg";
 		try {
@@ -32,8 +31,8 @@ public class Email {
 			mess.setHeader("Content-Type", "text/plain; charset=UTF-8");
 			mess.setFrom(new InternetAddress(fromEmail));
 			mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-			mess.setSubject("Confirm Code");
-			mess.setText("Your code is: " + user.getCode());
+			mess.setSubject(title);
+			mess.setText(text);
 			Transport.send(mess);
 			test = true;
 		} catch (Exception e) {

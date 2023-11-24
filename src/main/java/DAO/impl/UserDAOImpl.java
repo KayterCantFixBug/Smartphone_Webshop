@@ -73,14 +73,11 @@ public class UserDAOImpl implements IUserDAO {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void delete(int id) {
+	public void delete(User user) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			User user = session.get(User.class, id);
-			if (user != null) {
-				session.delete(user);
-			}
+			session.delete(user);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
