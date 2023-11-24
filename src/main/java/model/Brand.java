@@ -1,18 +1,30 @@
-package models;
+package model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="brands")
+@Table(name = "brands")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "brand_id")
+    @Column(name = "brand_id")
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
-    @Column(name ="country", nullable = false)
+    @Column(name = "country")
     private String country;
+
+    public Brand(){}
+    public Brand(String name, String country) {
+        this.name = name;
+        this.country = country;
+    }
+
+    public Brand(Long id, String name, String country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+    }
 
     public Long getId() {
         return id;

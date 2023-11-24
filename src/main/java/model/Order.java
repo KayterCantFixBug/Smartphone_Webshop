@@ -1,34 +1,34 @@
-package models;
+package model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name="order_id")
-    private Long id;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @Column (name = "order_id")
+    private  Long id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_detail_id", referencedColumnName = "order_detail_id")
-    private List<OrderDetail> listOrderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
-    @Column (name="date")
-    private Date date;
-    @Column(name="estimateDate")
+    @Column (name = "estimate_date")
     private Date estimateDate;
-    @Column(name="address", nullable = false)
+    @Column (name = "address")
     private String address;
-    @Column(name = "status", columnDefinition = "Chưa giao")
-    private String status;
-    @Column(name="note")
+    @Column (name = "status")
+    private int status;
+    @Column (name = "note")
     private String note;
 
     public Long getId() {
@@ -39,12 +39,12 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public Date getEstimateDate() {
@@ -63,11 +63,11 @@ public class Order {
         this.address = address;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -79,11 +79,13 @@ public class Order {
         this.note = note;
     }
 
-    public List<OrderDetail> getListOrderDetails() {
-        return listOrderDetails;
+    public User getUser() {
+        return user;
     }
 
-    public void setListOrderDetails(List<OrderDetail> listOrderDetails) {
-        this.listOrderDetails = listOrderDetails;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+
 }

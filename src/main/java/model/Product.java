@@ -1,42 +1,44 @@
-package models;
+package model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-
 
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name="product_id")
+    @Column (name = "product_id")
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="brand_id", referencedColumnName = "brand_id")
-    private Brand brand;
-    @Column (name="name", nullable = false)
-    private String name;
 
-    @Column (name = "price")
+    private String name;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
+    private Brand brand;
+
+    @Column(name = "price")
     private double price;
-    @Column(name="color")
+
+    @Column(name = "color")
     private String color;
-    @Column(name="storage")
-    private double storage;
-    @Column(name="screen_size")
-    private double screenSize;
-    @Column(name="resolution")
-    private String resolution;
-    @Column(name="cpu")
+    @Column(name = "storage")
+    private String storage;
+    @Column(name = "camera")
+    private String camera;
+    @Column(name = "resolution")
+    private double resolution;
+    @Column(name = "cpu")
     private String cpu;
-    @Column(name="ram")
+    @Column(name = "ram")
     private double ram;
-    @Column(name="os")
+    @Column(name = "os")
     private String os;
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
+
+    public Product (){}
 
     public Long getId() {
         return id;
@@ -52,14 +54,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
     }
 
     public double getPrice() {
@@ -78,27 +72,27 @@ public class Product {
         this.color = color;
     }
 
-    public double getStorage() {
+    public String getStorage() {
         return storage;
     }
 
-    public void setStorage(double storage) {
+    public void setStorage(String storage) {
         this.storage = storage;
     }
 
-    public double getScreenSize() {
-        return screenSize;
+    public String getCamera() {
+        return camera;
     }
 
-    public void setScreenSize(double screenSize) {
-        this.screenSize = screenSize;
+    public void setCamera(String camera) {
+        this.camera = camera;
     }
 
-    public String getResolution() {
+    public double getResolution() {
         return resolution;
     }
 
-    public void setResolution(String resolution) {
+    public void setResolution(double resolution) {
         this.resolution = resolution;
     }
 
@@ -133,4 +127,13 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
 }
