@@ -8,7 +8,7 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")
-    private Long id;
+    private int id;
     @Column(name = "name")
     private String name;
     @Column(name = "country")
@@ -20,17 +20,17 @@ public class Brand {
         this.country = country;
     }
 
-    public Brand(Long id, String name, String country) {
+    public Brand(int id, String name, String country) {
         this.id = id;
         this.name = name;
         this.country = country;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

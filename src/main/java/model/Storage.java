@@ -8,7 +8,7 @@ public class Storage {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "storage_id")
-    private Long id;
+    private int id;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
@@ -20,17 +20,17 @@ public class Storage {
         this.quantity = quantity;
     }
 
-    public Storage(Long id, Product product, int quantity) {
+    public Storage(int id, Product product, int quantity) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

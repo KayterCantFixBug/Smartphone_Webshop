@@ -8,7 +8,7 @@ public class OrderDetail {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "order_detail_id")
-    private Long id;
+    private int id;
 
     @OneToOne
     @JoinColumn(name = "product_product_id")
@@ -20,5 +20,13 @@ public class OrderDetail {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

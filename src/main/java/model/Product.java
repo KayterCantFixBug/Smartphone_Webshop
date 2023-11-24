@@ -11,7 +11,7 @@ public class Product {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "product_id")
-    private Long id;
+    private int id;
 
     private String name;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,11 +40,11 @@ public class Product {
 
     public Product (){}
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
