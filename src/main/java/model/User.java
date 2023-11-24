@@ -7,6 +7,10 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 public class User {
+    public User() {
+
+    }
+
     public enum Gender {
         MALE, FEMALE
     }
