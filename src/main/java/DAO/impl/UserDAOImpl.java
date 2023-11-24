@@ -38,6 +38,7 @@ public class UserDAOImpl implements IUserDAO {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void insert(User user) {
+		System.out.println("User in insert function!!");
 		Transaction transaction = null;
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		try {

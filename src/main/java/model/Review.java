@@ -13,12 +13,12 @@ public class Review {
     private int id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_product_id")
+    @JoinColumn(name = "product_id")
     private Product Product;
 
     @Column (name = "content")

@@ -15,7 +15,7 @@ public class Product {
 
     private String name;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
     @Column(name = "price")

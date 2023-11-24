@@ -10,7 +10,7 @@ public class OrderDetail {
     @Column(name = "order_detail_id")
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_product_id")
     private Product product;
 
