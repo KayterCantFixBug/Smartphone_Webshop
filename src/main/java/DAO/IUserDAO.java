@@ -12,4 +12,5 @@ public interface IUserDAO {
 	void update(User user);
 	void delete(int id);
 	boolean checkExistEmail(String email);
+	boolean checkExistPhone(String phoneNumber);
 }

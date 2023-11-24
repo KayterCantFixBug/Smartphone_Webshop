@@ -80,7 +80,6 @@ public class UserDAOImpl implements IUserDAO {
 			User user = session.get(User.class, id);
 			if (user != null) {
 				session.delete(user);
-				System.out.println("user is deleted");
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -119,5 +118,18 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 		}
 		return listOfUser;
+	}
+
+	@Override
+	public boolean checkExistPhone(String phoneNumber) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String hql = "SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.phoneNumber = :phoneNumber";
+			boolean exists = session.createQuery(hql, Boolean.class).setParameter("phoneNumber", phoneNumber)
+					.uniqueResult();
+			return exists;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

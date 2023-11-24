@@ -8,7 +8,6 @@ import java.util.List;
 
 public class UserServiceImpl implements IUserService {
 
-
 	IUserDAO userDAO = new UserDAOImpl();
 
 	@Override
@@ -65,9 +64,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean checkExistPhone(String phone) {
-		return false;
+	public boolean checkExistPhone(String phoneNumber) {
+		return userDAO.checkExistPhone(phoneNumber);
 	}
-
-
 }
