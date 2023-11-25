@@ -50,6 +50,16 @@ public class User {
     @Column(name = "gender")
     private Gender gender;
 
+    @Column(name = "country")
+    private String country;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public int getId() {
         return id;
@@ -173,5 +183,19 @@ public class User {
         this.code = code;
         this.status = status;
         this.image = image;
+    }
+
+    public User(String phoneNumber, String name, Role role, String password, Date birthdate, String email, String code, String image, Status status, Gender gender, String country) {
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.role = role;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.code = code;
+        this.image = image;
+        this.status = status;
+        this.gender = gender;
+        this.country = country;
     }
 }
