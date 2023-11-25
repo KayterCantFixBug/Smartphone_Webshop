@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @WebServlet("/updateUser")
 public class UpdateUserServlet extends HttpServlet {
@@ -35,16 +38,21 @@ public class UpdateUserServlet extends HttpServlet {
             updateUser(request, response);
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
     private void updateUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+            throws SQLException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
+        String phoneNumber = request.getParameter("phoneNumber");
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        Date birthdate = (Date)new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("birthdate"));
+        String image = request.getParameter("image");
+        User.Gender gender = User.Gender.valueOf(request.getParameter("gender"));
         String country = request.getParameter("country");
-
-        User user = new User(id, name, email, country);
+        User user = new User(id, phoneNumber, name, password, birthdate, image,gender, country);
         userDao.update(user);
         response.sendRedirect("printListUser");
     }

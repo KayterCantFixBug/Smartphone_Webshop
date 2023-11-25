@@ -185,16 +185,26 @@ public class User {
         this.image = image;
     }
 
-    public User(String phoneNumber, String name, Role role, String password, Date birthdate, String email, String code, String image, Status status, Gender gender, String country) {
+    public User(String phoneNumber, String name, String password, Date birthdate, String email, String code, String image, Status status, Gender gender, String country) {
         this.phoneNumber = phoneNumber;
         this.name = name;
-        this.role = role;
         this.password = password;
         this.birthdate = birthdate;
         this.email = email;
         this.code = code;
         this.image = image;
         this.status = status;
+        this.gender = gender;
+        this.country = country;
+    }
+
+    public User(int id, String phoneNumber, String name, String password, Date birthdate, String image, Gender gender, String country) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.image = image;
         this.gender = gender;
         this.country = country;
     }

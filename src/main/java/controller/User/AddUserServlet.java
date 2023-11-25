@@ -22,12 +22,6 @@ public class AddUserServlet  extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
@@ -37,6 +31,21 @@ public class AddUserServlet  extends HttpServlet {
             insertUser(request, response);
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        String url = request.getRequestURL().toString();
+        if (url.contains("register")) {
+            request.getRequestDispatcher("/views/home/register.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
     }
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
