@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/addUser")
+@WebServlet(urlPatterns = { "/views/admin/addUser", "/addUser"})
 public class AddUserServlet  extends HttpServlet {
 
     private UserDAOImpl userDao;
@@ -38,7 +38,6 @@ public class AddUserServlet  extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         String url = request.getRequestURL().toString();
