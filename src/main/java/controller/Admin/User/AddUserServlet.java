@@ -1,8 +1,10 @@
-package controller.User;
+package controller.Admin.User;
 
 
 import DAO.impl.UserDAOImpl;
 import model.User;
+import service.IUserService;
+import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +17,7 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = { "/views/admin/addUser", "/addUser"})
 public class AddUserServlet  extends HttpServlet {
 
-    private UserDAOImpl userDao;
-
-    public void init(){
-        userDao = new UserDAOImpl();
-    }
+    private IUserService userService = new UserServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
@@ -37,12 +35,12 @@ public class AddUserServlet  extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         String url = request.getRequestURL().toString();
-        if (url.contains("register")) {
-            request.getRequestDispatcher("/views/home/register.jsp").forward(request, response);
+        if (url.contains("addUser")) {
+            request.getRequestDispatcher("/views/admin/register.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }

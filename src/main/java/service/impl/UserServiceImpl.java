@@ -3,28 +3,14 @@ package service.impl;
 import DAO.IUserDAO;
 import DAO.impl.UserDAOImpl;
 import model.User;
+import service.IBase;
 import service.IUserService;
+
 import java.util.List;
 
-public class UserServiceImpl implements IUserService {
-
+public class UserServiceImpl implements IUserService, IBase<User> {
 
 	IUserDAO userDAO = new UserDAOImpl();
-
-	@Override
-	public void insert(User user) {
-		userDAO.insert(user);
-	}
-
-	@Override
-	public void update(User user) {
-		userDAO.update(user);
-	}
-
-	@Override
-	public void delete(int id) {
-
-	}
 
 	@Override
 	public User login(String username, String password) {
@@ -51,7 +37,22 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<User> getAll() {
-		return null;
+		return userDAO.getAll();
+	}
+
+	@Override
+	public void insert(User user) {
+		userDAO.insert(user);
+	}
+
+	@Override
+	public void update(User user) {
+		userDAO.update(user);
+	}
+
+	@Override
+	public void delete(int id) {
+		userDAO.delete(id);
 	}
 
 	@Override

@@ -1,6 +1,8 @@
-package controller.User;
+package controller.Admin.User;
 
 import DAO.impl.UserDAOImpl;
+import service.IUserService;
+import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,23 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/deleteUser")
+@WebServlet(urlPatterns = {"/deleteUser, /views/admin/user-list.jsp"})
 public class DeleteUserServlet extends HttpServlet {
-    private UserDAOImpl userDao;
-
-    public void init(){
-        userDao = new UserDAOImpl();
-    }
+    private UserServiceImpl userService = new UserServiceImpl();
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
-    }
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String action = request.getServletPath();
@@ -36,12 +28,25 @@ public class DeleteUserServlet extends HttpServlet {
             throw new ServletException(ex);
         }
     }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+
+        String url = request.getRequestURL().toString();
+        if (url.contains("delete")) {
+            request.getRequestDispatcher("/views/admin/user-list.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/views/home.jsp").forward(request, response);
+        }
+    }
     private void deleteUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         int id = Integer.parseInt(request.getParameter("id"));
-        userDao.delete(id);
+        userService.delete(id);
         response.sendRedirect("printListUser");
     }
 

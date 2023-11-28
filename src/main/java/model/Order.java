@@ -13,11 +13,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "order_id")
     private  int id;
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
     @Column (name = "estimate_date")
     private Date estimateDate;
     @Column (name = "address")

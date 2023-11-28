@@ -5,14 +5,17 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     public User() {
 
     }
 
+    public User(User byId) {
+    }
+
     public enum Gender {
-        MALE, FEMALE
+        MALE, FEMALE, UNKNOWN
     }
 
     public enum Role {
@@ -50,16 +53,6 @@ public class User {
     @Column(name = "gender")
     private Gender gender;
 
-    @Column(name = "country")
-    private String country;
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 
     public int getId() {
         return id;
@@ -195,17 +188,44 @@ public class User {
         this.image = image;
         this.status = status;
         this.gender = gender;
-        this.country = country;
+
     }
 
-    public User(int id, String phoneNumber, String name, String password, Date birthdate, String image, Gender gender, String country) {
+    public User(int id, String phoneNumber, String name, String password, String email, Date birthdate, Gender gender) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.gender = gender;
+
+    }
+
+    public User(int id, String phoneNumber, String name, String password, String email) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+    public User(int id, String phoneNumber, String name, String password, String email, Date birthdate) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.birthdate = birthdate;
+    }
+
+    public User(int id, String phoneNumber, String name, String password, Date birthdate, String email, Status status, Gender gender) {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.password = password;
         this.birthdate = birthdate;
-        this.image = image;
+        this.email = email;
+        this.status = status;
         this.gender = gender;
-        this.country = country;
     }
 }
