@@ -56,6 +56,9 @@ public class UpdateBrandServlet extends HttpServlet {
         String name = request.getParameter("name");
         String country = request.getParameter("country");
 
+        if (name.equals(null)) name = "";
+        if (country.equals(null)) country ="";
+
         Brand brand = new Brand(id, name, country);
         brandService.update(brand);
         response.sendRedirect("printListBrand");

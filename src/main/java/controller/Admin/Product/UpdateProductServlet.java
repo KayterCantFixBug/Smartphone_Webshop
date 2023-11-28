@@ -55,8 +55,8 @@ public class UpdateProductServlet extends HttpServlet {
             throws SQLException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        String brandIdParameter = request.getParameter("brand_id");
-        double price = Double.parseDouble(request.getParameter("price"));
+        String brand_string = request.getParameter("brand_id");
+        String price = request.getParameter("price");
         String storage = request.getParameter("storage");
         double ram = Double.parseDouble(request.getParameter("ram"));
         String os = request.getParameter("os");
@@ -64,9 +64,9 @@ public class UpdateProductServlet extends HttpServlet {
 
         if (name.equals(null)) name ="";
         int brandId;
-        if (brandIdParameter != null && !brandIdParameter.isEmpty()) {
+        if (brand_string != null && !brand_string.isEmpty()) {
             try {
-                brandId = Integer.parseInt(brandIdParameter);
+                brandId = Integer.parseInt(brand_string);
             } catch (NumberFormatException e) {
                 brandId = 1;
             }
