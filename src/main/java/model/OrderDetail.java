@@ -10,7 +10,7 @@ public class OrderDetail {
     @Column(name = "order_detail_id")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 

@@ -20,7 +20,7 @@
         <input type="hidden" name="status" value="${user.status}" />  <br>
         <input type="radio" name="gender" value="MALE" ${user.gender == 'MALE' ? 'checked' : ''} />Nam
         <input type="radio" name="gender" value="FEMALE" ${user.gender == 'FEMALE' ? 'checked' : ''} />Nữ
-
+        <input type="radio" name="gender" value="UNKNOWN" ${user.gender == 'UNKNOWN' ? 'checked' : ''} />Không xác định
         </p>
         <input type="submit" value="Xác nhận" id="submit">
     </form>

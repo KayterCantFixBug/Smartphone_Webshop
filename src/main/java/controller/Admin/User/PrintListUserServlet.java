@@ -36,22 +36,19 @@ public class PrintListUserServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
-//        response.setCharacterEncoding("UTF-8");
-//
-//        String url = request.getRequestURL().toString();
-//        if (url.contains("printListUser")) {
-//            request.getRequestDispatcher("/views/admin/user-list.jsp").forward(request, response);
-//        } else {
-//            request.getRequestDispatcher("/views/home.jsp").forward(request, response);
-//        }
+        response.setCharacterEncoding("UTF-8");
+        String url = request.getRequestURL().toString();
+        if (url.contains("printListUser")) {
+            request.getRequestDispatcher("/views/admin/user-list.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/views/home.jsp").forward(request, response);
+        }
     }
     private void printListUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
 
-        List<User> listUser = userService.getAll();
+        List<User> listUser = userService.getAll(User.class);
         request.setAttribute("listUser", listUser);
-        System.out.println("ok");
         String url= "/views/admin/user-list.jsp";
         request.getRequestDispatcher(url).forward(request, response);
     }

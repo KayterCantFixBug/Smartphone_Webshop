@@ -1,7 +1,7 @@
 package controller.Admin.User;
 
-import DAO.impl.UserDAOImpl;
-import service.IUserService;
+
+import model.User;
 import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = {"/deleteUser, /views/admin/user-list.jsp"})
+@WebServlet(urlPatterns = {"/deleteUser", "/views/admin/deleteUser"})
 public class DeleteUserServlet extends HttpServlet {
     private UserServiceImpl userService = new UserServiceImpl();
     @Override
@@ -35,7 +35,7 @@ public class DeleteUserServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String url = request.getRequestURL().toString();
-        if (url.contains("delete")) {
+        if (url.contains("deleteUser")) {
             request.getRequestDispatcher("/views/admin/user-list.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
@@ -46,7 +46,7 @@ public class DeleteUserServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         int id = Integer.parseInt(request.getParameter("id"));
-        userService.delete(id);
+        userService.delete(User.class, id);
         response.sendRedirect("printListUser");
     }
 

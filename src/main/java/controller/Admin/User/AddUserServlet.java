@@ -14,17 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = { "/views/admin/addUser", "/addUser"})
+@WebServlet(urlPatterns = {"/views/admin/addUser", "/addUser"})
 public class AddUserServlet  extends HttpServlet {
 
-    private IUserService userService = new UserServiceImpl();
+    private UserServiceImpl userService = new UserServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        String action = request.getServletPath();
-
         try{
             insertUser(request, response);
         } catch (SQLException ex) {
@@ -40,14 +38,15 @@ public class AddUserServlet  extends HttpServlet {
 
         String url = request.getRequestURL().toString();
         if (url.contains("addUser")) {
-            request.getRequestDispatcher("/views/admin/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/home/register.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
     }
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        response.sendRedirect("register");
+        String url= "/views/home/register.jsp";
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
 }

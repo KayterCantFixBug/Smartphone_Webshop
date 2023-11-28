@@ -16,6 +16,9 @@ public class Order {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_detail_id")
+    private List<OrderDetail> orderDetails;
     @Column (name = "estimate_date")
     private Date estimateDate;
     @Column (name = "address")

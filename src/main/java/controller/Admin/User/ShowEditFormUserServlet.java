@@ -47,7 +47,9 @@ public class ShowEditFormUserServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
-        User user = userService.findById(id);
+        User user = userService.findById(User.class, id);
+        if (user.getGender() == null)
+            user.setGender(User.Gender.UNKNOWN);
         request.setAttribute("user", user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/admin/user-form.jsp");
         dispatcher.forward(request, response);

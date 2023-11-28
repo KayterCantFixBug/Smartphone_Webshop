@@ -12,25 +12,14 @@ public class Product {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "product_id")
     private int id;
-
     private String name;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     private Brand brand;
-
     @Column(name = "price")
     private double price;
-
-    @Column(name = "color")
-    private String color;
     @Column(name = "storage")
     private String storage;
-    @Column(name = "camera")
-    private String camera;
-    @Column(name = "resolution")
-    private double resolution;
-    @Column(name = "cpu")
-    private String cpu;
     @Column(name = "ram")
     private double ram;
     @Column(name = "os")
@@ -64,13 +53,7 @@ public class Product {
         this.price = price;
     }
 
-    public String getColor() {
-        return color;
-    }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public String getStorage() {
         return storage;
@@ -80,29 +63,6 @@ public class Product {
         this.storage = storage;
     }
 
-    public String getCamera() {
-        return camera;
-    }
-
-    public void setCamera(String camera) {
-        this.camera = camera;
-    }
-
-    public double getResolution() {
-        return resolution;
-    }
-
-    public void setResolution(double resolution) {
-        this.resolution = resolution;
-    }
-
-    public String getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
 
     public double getRam() {
         return ram;

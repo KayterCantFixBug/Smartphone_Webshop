@@ -3,23 +3,17 @@ package service.impl;
 import DAO.IUserDAO;
 import DAO.impl.UserDAOImpl;
 import model.User;
-import service.IBase;
+import service.IBaseService;
 import service.IUserService;
 
 import java.util.List;
 
-public class UserServiceImpl implements IUserService, IBase<User> {
+public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService {
 
-	IUserDAO userDAO = new UserDAOImpl();
-
+	UserDAOImpl userDAO = new UserDAOImpl();
 	@Override
 	public User login(String username, String password) {
 		return null;
-	}
-
-	@Override
-	public User findById(int id) {
-		return userDAO.findById(id);
 	}
 
 	@Override
@@ -33,31 +27,6 @@ public class UserServiceImpl implements IUserService, IBase<User> {
 			return false;
 		userDAO.insert(new User(name, User.Role.USER, email, password, code, User.Status.INACTIVE));
 		return true;
-	}
-
-	@Override
-	public List<User> getAll() {
-		return userDAO.getAll();
-	}
-
-	@Override
-	public void insert(User user) {
-		userDAO.insert(user);
-	}
-
-	@Override
-	public void update(User user) {
-		userDAO.update(user);
-	}
-
-	@Override
-	public void delete(int id) {
-		userDAO.delete(id);
-	}
-
-	@Override
-	public List<User> search(String keyword) {
-		return null;
 	}
 
 	@Override

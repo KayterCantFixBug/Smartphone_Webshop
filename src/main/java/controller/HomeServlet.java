@@ -15,10 +15,11 @@ import service.IUserService;
 import service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/views/home/register", "/views/home/verify", "/register" })
+@WebServlet(urlPatterns = { "/views/home/register", "/views/home/verify", "/register", "/verify"})
+
 public class HomeServlet extends HttpServlet {
 
-    IUserService userService = new UserServiceImpl();
+    UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

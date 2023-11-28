@@ -1,8 +1,10 @@
 package controller.Admin.Product;
 
+import model.Brand;
 import model.User;
 import service.IProductService;
 import service.IUserService;
+import service.impl.ProductServiceImpl;
 import service.impl.UserServiceImpl;
 import utility.HibernateUtility;
 
@@ -52,21 +54,23 @@ public class UpdateProductServlet extends HttpServlet {
     private void updateProduct(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String phoneNumber = request.getParameter("phoneNumber");
         String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String birthdate_string = request.getParameter("birthdate");
-        Date birthdate;
+        String brandIdParameter = request.getParameter("brand_id");
+        double price = Double.parseDouble(request.getParameter("price"));
+        String storage = request.getParameter("storage");
+        double ram = Double.parseDouble(request.getParameter("ram"));
+        String os = request.getParameter("os");
+        String description = request.getParameter("description");
 
-//        String image = request.getParameter("image");
-        String email = request.getParameter("email");
-
-        User.Status status = User.Status.valueOf(request.getParameter("status"));
-        User.Gender gender = User.Gender.valueOf(request.getParameter("gender"));
-        System.out.println(status);
-        System.out.println(gender);
-        if (phoneNumber.equals(null)) phoneNumber ="";
         if (name.equals(null)) name ="";
+        int brandId;
+        if (brandIdParameter != null && !brandIdParameter.isEmpty()) {
+            try {
+                brandId = Integer.parseInt(brandIdParameter);
+            } catch (NumberFormatException e) {
+                brandId = 1;
+            }
+
         if (password.equals(null)) password ="";
         if (birthdate_string.equals(""))
             birthdate = null;

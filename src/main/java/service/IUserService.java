@@ -14,7 +14,6 @@ public interface IUserService {
 
     boolean register(String name, String email, String password, String code);
 
-    List<User> search(String keyword);
     boolean checkExistEmail(String email);
     boolean checkExistPhone(String phone);
 }

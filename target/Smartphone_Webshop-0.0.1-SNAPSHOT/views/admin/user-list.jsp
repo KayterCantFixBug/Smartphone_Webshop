@@ -11,7 +11,7 @@
     <h1>User Management</h1>
     <h2>
 
-        <form action="showNewFormUser" method="post">
+        <form action="addUser" method="post">
             <input type="submit" value="Add New User">
         </form>
 
@@ -50,19 +50,25 @@
                 <td><c:out value="${user.gender}" /></td>
 
                 <td>
-                <form action="showEditFormUser" method="post">
-                    <input type="hidden" name="id" value="${user.id}">
-                    <input type="hidden" name="phoneNumber" value="${user.phoneNumber}">
-                    <input type="hidden" name="name" value="${user.name}">
-                    <input type="hidden" name="password" value="${user.password}">
-                    <input type="hidden" name="birthdate" value="${user.birthdate}">
-                    <input type="hidden" name="email" value="${user.email}">
-                    <input type="hidden" name="status" value="${user.status}">
-                    <input type="hidden" name="gender" value="${user.gender}">
-                    <input type="submit" value="Edit">
-                </form>
+                    <form action="showEditFormUser" method="post">
+                        <input type="hidden" name="id" value="${user.id}">
+                            <%--                    <input type="hidden" name="phoneNumber" value="${user.phoneNumber}">--%>
+                            <%--                    <input type="hidden" name="name" value="${user.name}">--%>
+                            <%--                    <input type="hidden" name="password" value="${user.password}">--%>
+                            <%--                    <input type="hidden" name="birthdate" value="${user.birthdate}">--%>
+                            <%--                    <input type="hidden" name="email" value="${user.email}">--%>
+                            <%--                    <input type="hidden" name="status" value="${user.status}">--%>
+                            <%--                    <input type="hidden" name="gender" value="${user.gender}">--%>
+                        <input type="submit" value="Edit">
+                    </form>
                 </td>
-<%--                    <a href="deleteUser?id=<c:out value='${user.id}' />">Delete</a>--%>
+                <td>
+                    <form action="deleteUser" method="post">
+                        <input type="hidden" name="id" value="${user.id}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+                    <%--                    <a href="deleteUser?id=<c:out value='${user.id}' />">Delete</a>--%>
 
             </tr>
         </c:forEach>
