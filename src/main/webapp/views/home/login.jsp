@@ -9,9 +9,9 @@
 		}
 	}
 </script>
-<div class="position-absolute top-50 start-50 translate-middle">
+<div class="container mt-5 mb-5 d-flex justify-content-center">
 	<div class="card" style="width: 30rem;">
-		<div class="card-header text-center">Login</div>
+		<div class="card-header text-center text-bg-success mb-5">Login</div>
 		<div class="card-body">
 			<c:if test="${error != null}">
 				<div class="alert alert-danger mb-3" role="alert">${error}</div>
@@ -27,21 +27,22 @@
 						type="password" name="password" id="password" class="form-control"
 						required>
 				</div>
-				<div class="form-check mb-3">
-					<input name="cbShowPass" class="form-check-input" type="checkbox"
-						onchange="showPassword()"> <label>Show Password</label>
+				<div class="form-check form-switch mb-3">
+					<input class="form-check-input" type="checkbox" role="switch"
+						id="showpass" onclick="showPassword()"> <label
+						class="form-check-label" for="showpass">Show Password</label>
 				</div>
-				<div class="form-check mb-3">
-					<input name="remember" class="form-check-input" type="checkbox">
-					<label>Remember Me</label>
+				<div class="form-check form-switch mb-3">
+					<input name="remember" class="form-check-input" type="checkbox"
+						role="switch" id="rememberme"> <label
+						class="form-check-label" for="rememberme">Remember Me</label>
 				</div>
 				<div class="text-center mb-3">
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</form>
 			<div class="card-footer">
-				<a
-					href="${pageContext.servletContext.contextPath}/views/home/forgotpassword.jsp"
+				<a href="${pageContext.servletContext.contextPath}/forgotpassword"
 					class="link-body-emphasis link-underline-opacity-25 link-underline-opacity-75-hover">Forgot
 					Password?</a>
 			</div>

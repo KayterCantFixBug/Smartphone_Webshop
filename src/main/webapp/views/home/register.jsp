@@ -1,7 +1,8 @@
 <%@ include file="/views/includes/header.jsp"%>
-<div class="position-absolute top-50 start-50 translate-middle">
+<div class="container mt-5 mb-5 d-flex justify-content-center">
 	<div class="card" style="width: 30rem;">
-		<div class="card-header text-center">Sign Up</div>
+		<div class="card-header text-center text-bg-success mb-5">Sign
+			Up</div>
 		<div class="card-body">
 			<c:if test="${error != null}">
 				<div class="alert alert-danger mb-3" role="alert">${error}</div>

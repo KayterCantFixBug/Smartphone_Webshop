@@ -38,12 +38,10 @@ public class User {
 	private String email;
 	@Column(name = "code")
 	private String code;
-	@Column(name = "image")
-	private String image;
-
+	@Column(name = "image", columnDefinition = "BLOB")
+	private byte[] image;
 	@Column(name = "status")
 	private Status status;
-
 	@Column(name = "gender")
 	private Gender gender;
 
@@ -95,11 +93,11 @@ public class User {
 		this.code = code;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 

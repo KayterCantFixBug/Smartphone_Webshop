@@ -1,13 +1,13 @@
 <%@ include file="/views/includes/header.jsp"%>
-<div class="position-absolute top-50 start-50 translate-middle">
+<div class="container mt-5 mb-5 d-flex justify-content-center">
 	<div class="card" style="width: 30rem;">
-		<div class="card-header text-center">Verifying</div>
+		<div class="card-header text-center text-bg-success mb-5">Verifying</div>
 		<div class="card-body">
 			<c:if test="${message != null}">
 				<div class="alert alert-success mb-3" role="alert">${message}</div>
 				<div class="text-center mb-3">
 					<a class="btn btn-primary"
-						href="${pageContext.servletContext.contextPath}/views/home/login.jsp"
+						href="${pageContext.servletContext.contextPath}/login"
 						role="button">Login</a>
 				</div>
 			</c:if>

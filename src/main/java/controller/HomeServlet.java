@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -17,9 +18,7 @@ import service.IUserService;
 import service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/views/home/login", "/views/home/register", "/views/home/verify",
-		"/views/home/forgotpassword", "/views/home/resetpassword", "/register", "/login", "/forgotpassword",
-		"/logout" })
+@WebServlet(urlPatterns = { "/verify", "/resetpassword", "/register", "/login", "/forgotpassword", "/logout" })
 public class HomeServlet extends HttpServlet {
 
 	IUserService userService = new UserServiceImpl();
@@ -125,7 +124,7 @@ public class HomeServlet extends HttpServlet {
 				}
 			}
 		}
-		response.sendRedirect(request.getContextPath() + "/views/home/login.jsp");
+		response.sendRedirect(request.getContextPath() + "/login");
 	}
 
 	private void getLogin(HttpServletRequest request, HttpServletResponse response)
@@ -141,7 +140,10 @@ public class HomeServlet extends HttpServlet {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("email")) {
 					session = request.getSession(true);
-					session.setAttribute("email", cookie.getValue());
+					String email = cookie.getValue();
+					session.setAttribute("email", email);
+					User user = userService.findByEmail(email);
+					session.setAttribute("account", user);
 					waiting(request, response);
 					return;
 				}
@@ -189,8 +191,15 @@ public class HomeServlet extends HttpServlet {
 	private void waiting(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		User u = (User) session.getAttribute("account");
+		User user = userService.findByEmail(u.getEmail());
+		if (user.getImage() != null) {
+			byte[] imageBytes = user.getImage();
+			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+			String imageData = "data:image/png;base64," + base64Image;
+			session.setAttribute("imageData", imageData);
+		}
 		if (session != null && session.getAttribute("account") != null) {
-			User u = (User) session.getAttribute("account");
 			if (u.getRole() == Role.ADMIN) {
 				request.getRequestDispatcher("/views/admin/home.jsp").forward(request, response);
 			} else if (u.getRole() == Role.USER) {
