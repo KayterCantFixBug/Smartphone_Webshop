@@ -19,7 +19,7 @@ public class Product {
     @Column(name = "price")
     private double price;
     @Column(name = "storage")
-    private String storage;
+    private double storage;
     @Column(name = "ram")
     private double ram;
     @Column(name = "os")
@@ -54,15 +54,13 @@ public class Product {
     }
 
 
-
-    public String getStorage() {
+    public double getStorage() {
         return storage;
     }
 
-    public void setStorage(String storage) {
+    public void setStorage(double storage) {
         this.storage = storage;
     }
-
 
     public double getRam() {
         return ram;

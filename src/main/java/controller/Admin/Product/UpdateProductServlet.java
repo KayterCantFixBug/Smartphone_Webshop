@@ -56,8 +56,8 @@ public class UpdateProductServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String brand_string = request.getParameter("brand_id");
-        String price = request.getParameter("price");
-        String storage = request.getParameter("storage");
+        String price_string = request.getParameter("price");
+        double storage = Double.parseDouble(request.getParameter("storage"));
         double ram = Double.parseDouble(request.getParameter("ram"));
         String os = request.getParameter("os");
         String description = request.getParameter("description");
@@ -70,15 +70,17 @@ public class UpdateProductServlet extends HttpServlet {
             } catch (NumberFormatException e) {
                 brandId = 1;
             }
-
-        if (password.equals(null)) password ="";
-        if (birthdate_string.equals(""))
-            birthdate = null;
-        else {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            birthdate = formatter.parse(birthdate_string);
         }
-        if (email.equals(null)) email ="";
+        double price;
+        if (price_string != null && !price_string.isEmpty()) {
+            try {
+                price = Double.parseDouble(price_string);
+            } catch (NumberFormatException e) {
+                price = 0;
+            }
+        }
+
+
 
         User user = new User(id, phoneNumber, name, password, birthdate, email, status, gender);
         userService.update(user);
