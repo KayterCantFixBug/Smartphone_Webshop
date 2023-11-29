@@ -1,9 +1,6 @@
-package controller.Admin.Brand;
+package controller.Admin.Product;
 
-import model.Brand;
-import model.User;
-import service.impl.BrandServiceImpl;
-import service.impl.UserServiceImpl;
+import service.impl.ProductServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 
-@WebServlet(urlPatterns = {"/views/admin/showEditFormBrand", "/showEditFormBrand"})
-public class ShowEditFormBrandServlet extends HttpServlet {
-    private BrandServiceImpl brandService = new BrandServiceImpl();
+@WebServlet(urlPatterns = {"/views/admin/showNewFormProduct", "/showNewFormProduct"})
+public class ShowNewFormProductServlet extends HttpServlet {
+    private ProductServiceImpl productService = new ProductServiceImpl();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +22,7 @@ public class ShowEditFormBrandServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         try {
-            showNewFormBrand(request, response);
+            showNewForm(request, response);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -38,18 +35,15 @@ public class ShowEditFormBrandServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 
         String url = request.getRequestURL().toString();
-        if (url.contains("showEditFormBrand")) {
-            request.getRequestDispatcher("/views/admin/brand-form.jsp").forward(request, response);
+        if (url.contains("showNewFormProduct")) {
+            request.getRequestDispatcher("/views/admin/product-form-new.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
     }
-    private void showNewFormBrand(HttpServletRequest request, HttpServletResponse response)
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Brand brand = brandService.findById(Brand.class,id);
-        request.setAttribute("brand", brand);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/admin/brand-form.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/admin/product-form-new.jsp");
         dispatcher.forward(request, response);
     }
 }

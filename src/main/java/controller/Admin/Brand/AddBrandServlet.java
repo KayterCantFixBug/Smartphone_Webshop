@@ -45,7 +45,8 @@ public class AddBrandServlet  extends HttpServlet {
             throws SQLException, IOException, ServletException {
         String name = request.getParameter("name");
         String country = request.getParameter("country");
-
+        if (name == null) name = "";
+        if (country == null) country ="";
         Brand brand = new Brand(name, country);
         brandService.insert(brand);
         response.sendRedirect("printListBrand");

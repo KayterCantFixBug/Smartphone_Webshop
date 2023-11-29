@@ -5,6 +5,6 @@ import DAO.IProductDAO;
 
 import java.util.List;
 
-public class ProducDAOtImpl {
+public class ProducDAOtImpl extends BaseDAOImpl implements IProductDAO{
 
 }

@@ -29,7 +29,7 @@ public class UpdateBrandServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 
         try{
-            updateUser(request, response);
+            updateBrand(request, response);
         } catch (SQLException ex) {
             throw new ServletException(ex);
         } catch (ParseException e) {
@@ -50,7 +50,7 @@ public class UpdateBrandServlet extends HttpServlet {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
     }
-    private void updateUser(HttpServletRequest request, HttpServletResponse response)
+    private void updateBrand(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");

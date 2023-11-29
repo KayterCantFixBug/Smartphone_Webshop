@@ -27,6 +27,17 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image")
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public Product (){}
 
     public int getId() {
@@ -94,4 +105,24 @@ public class Product {
         this.brand = brand;
     }
 
+    public Product(int id, String name, Brand brand, double price, double storage, double ram, String os, String description) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+        this.price = price;
+        this.storage = storage;
+        this.ram = ram;
+        this.os = os;
+        this.description = description;
+    }
+
+    public Product(String name, Brand brand, double price, double storage, double ram, String os, String description) {
+        this.name = name;
+        this.brand = brand;
+        this.price = price;
+        this.storage = storage;
+        this.ram = ram;
+        this.os = os;
+        this.description = description;
+    }
 }

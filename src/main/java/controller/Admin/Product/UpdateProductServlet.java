@@ -1,9 +1,12 @@
 package controller.Admin.Product;
 
 import model.Brand;
+import model.Product;
 import model.User;
 import service.IProductService;
 import service.IUserService;
+import service.impl.BaseServiceImpl;
+import service.impl.BrandServiceImpl;
 import service.impl.ProductServiceImpl;
 import service.impl.UserServiceImpl;
 import utility.HibernateUtility;
@@ -21,7 +24,7 @@ import java.util.Locale;
 
 public class UpdateProductServlet extends HttpServlet {
     private ProductServiceImpl productService = new ProductServiceImpl();
-
+    private BrandServiceImpl brandService = new BrandServiceImpl();
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,8 +48,8 @@ public class UpdateProductServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 
         String url = request.getRequestURL().toString();
-        if (url.contains("updateUser")) {
-            request.getRequestDispatcher("/views/admin/user-form.jsp").forward(request, response);
+        if (url.contains("updateProduct")) {
+            request.getRequestDispatcher("/views/admin/product-form.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
@@ -57,13 +60,15 @@ public class UpdateProductServlet extends HttpServlet {
         String name = request.getParameter("name");
         String brand_string = request.getParameter("brand_id");
         String price_string = request.getParameter("price");
-        double storage = Double.parseDouble(request.getParameter("storage"));
-        double ram = Double.parseDouble(request.getParameter("ram"));
+        String storage_string = request.getParameter("storage");
+        String ram_string = request.getParameter("ram");
         String os = request.getParameter("os");
         String description = request.getParameter("description");
 
+        // String image = request.getParameter("image");
+
         if (name.equals(null)) name ="";
-        int brandId;
+        int brandId = 1;
         if (brand_string != null && !brand_string.isEmpty()) {
             try {
                 brandId = Integer.parseInt(brand_string);
@@ -71,7 +76,7 @@ public class UpdateProductServlet extends HttpServlet {
                 brandId = 1;
             }
         }
-        double price;
+        double price = 0;
         if (price_string != null && !price_string.isEmpty()) {
             try {
                 price = Double.parseDouble(price_string);
@@ -79,11 +84,30 @@ public class UpdateProductServlet extends HttpServlet {
                 price = 0;
             }
         }
+        double storage = 0;
+        if (storage_string != null && !storage_string.isEmpty()) {
+            try {
+                storage = Double.parseDouble(storage_string);
+            } catch (NumberFormatException e) {
+                storage = 0;
+            }
+        }
+        double ram = 0;
+        if (ram_string != null && !ram_string.isEmpty()) {
+            try {
+                ram = Double.parseDouble(ram_string);
+            } catch (NumberFormatException e) {
+                ram = 0;
+            }
+        }
+        if (os == null) os = "";
+        if (description == null) description ="";
 
+        Brand brand = new Brand();
+        brand = brandService.findById(Brand.class, brandId);
 
-
-        User user = new User(id, phoneNumber, name, password, birthdate, email, status, gender);
-        userService.update(user);
-        response.sendRedirect("printListUser");
+        Product product = new Product(id, name, brand, price, storage, ram, os, description);
+        productService.update(product);
+        response.sendRedirect("printListProduct");
     }
 }

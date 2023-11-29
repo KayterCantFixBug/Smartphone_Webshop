@@ -11,12 +11,12 @@
     <h1>Product Management</h1>
     <h2>
 
-        <form action="addProduct" method="post">
-            <input type="submit" value="Add New User">
+        <form action="showNewFormProduct" method="post">
+            <input type="submit" value="Add New Product">
         </form>
 
         <form action="printListProduct" method="post">
-            <input type="submit" value="List All Users">
+            <input type="submit" value="List All Products">
         </form>
 
 
@@ -24,7 +24,7 @@
 </center>
 <div align="center">
     <table border="1" cellpadding="5">
-        <caption><h2>List of Users</h2></caption>
+        <caption><h2>List of products</h2></caption>
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -34,41 +34,32 @@
             <th>Ram</th>
             <th>Os</th>
             <th>Description</th>
-
+            <th>Image</th>
         </tr>
-        <c:forEach var="user" items="${listUser}">
+        <c:forEach var="product" items="${listProduct}">
             <tr>
-                <td><c:out value="${user.id}" /></td>
-                <td><c:out value="${user.phoneNumber}" /></td>
-                <td><c:out value="${user.name}" /></td>
-                <td><c:out value="${user.password}" /></td>
-                <td><c:out value="${user.birthdate}" /></td>
-                <td><c:out value="${user.email}" /></td>
-                <td><c:out value="${user.image}" /></td>
-                <td><c:out value="${user.status}" /></td>
-                <td><c:out value="${user.gender}" /></td>
+                <td><c:out value="${product.id}" /></td>
+                <td><c:out value="${product.name}" /></td>
+                <td><c:out value="${product.brand.id}" /></td>
+                <td><c:out value="${product.price}" /></td>
+                <td><c:out value="${product.storage}" /></td>
+                <td><c:out value="${product.ram}" /></td>
+                <td><c:out value="${product.os}" /></td>
+                <td><c:out value="${product.description}" /></td>
+                <td><c:out value="${product.image}" /></td>
 
                 <td>
-                    <form action="showEditFormUser" method="post">
-                        <input type="hidden" name="id" value="${user.id}">
-                        <input type="hidden" name="phoneNumber" value="${user.phoneNumber}">
-                        <input type="hidden" name="name" value="${user.name}">
-                        <input type="hidden" name="password" value="${user.password}">
-                        <input type="hidden" name="birthdate" value="${user.birthdate}">
-                        <input type="hidden" name="email" value="${user.email}">
-                        <input type="hidden" name="status" value="${user.status}">
-                        <input type="hidden" name="gender" value="${user.gender}">
+                    <form action="showEditFormProduct" method="post">
+                        <input type="hidden" name="id" value="${product.id}">
                         <input type="submit" value="Edit">
                     </form>
                 </td>
                 <td>
-                    <form action="deleteUser" method="post">
-                        <input type="hidden" name="id" value="${user.id}">
+                    <form action="deleteProduct" method="post">
+                        <input type="hidden" name="id" value="${product.id}">
                         <input type="submit" value="Delete">
                     </form>
                 </td>
-                    <%--                    <a href="deleteUser?id=<c:out value='${user.id}' />">Delete</a>--%>
-
             </tr>
         </c:forEach>
     </table>
