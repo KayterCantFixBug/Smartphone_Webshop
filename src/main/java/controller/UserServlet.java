@@ -61,7 +61,6 @@ public class UserServlet extends HttpServlet {
 	protected void updateUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Upload ulp = new Upload();
-		HttpSession session = request.getSession();
 		int id = Integer.parseInt(request.getParameter("id"));
 		User user =  userService.findById(User.class, id);
 		user.setName(request.getParameter("name"));
