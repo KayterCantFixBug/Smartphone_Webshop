@@ -13,12 +13,12 @@
 		<property name="hibernate.connection.CharSet">utf8</property>
 		<property name="hibernate.connection.characterEncoding">utf8</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-		<mapping class="model.User"/>
-		<mapping class="model.Brand"/>
-		<mapping class="model.Product"/>
-		<mapping class="model.Review"/>
-		<mapping class="model.Storage"/>
-		<mapping class="model.Order"/>
-		<mapping class="model.OrderDetail"/>
+		<mapping class="model.User" />
+		<mapping class="model.Brand" />
+		<mapping class="model.Product" />
+		<mapping class="model.Review" />
+		<mapping class="model.Storage" />
+		<mapping class="model.Order" />
+		<mapping class="model.OrderDetail" />
 	</session-factory>
 </hibernate-configuration>

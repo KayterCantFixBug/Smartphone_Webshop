@@ -12,6 +12,12 @@
 				<div class="card-body">
 					<div class="row align-items-center mb-3">
 						<div class="col-3">
+							<label class="form-label"><b>ID:</b></label>
+						</div>
+						<div class="col">${requestScope.user.id}</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-3">
 							<label class="form-label"><b>Name:</b></label>
 						</div>
 						<div class="col">${requestScope.user.name}</div>
@@ -67,7 +73,8 @@
 							class="form-check-label" for="showpass">Show Password</label>
 					</div>
 					<div class="text-center mb-3">
-						<form action="editprofile" method="get">
+						<form action="updateUser" method="get">
+							<input type="hidden" name="id" value="${requestScope.user.id }">
 							<input type="submit" class="btn btn-primary" value="Edit">
 						</form>
 					</div>

@@ -1,34 +1,36 @@
 package controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.Base64;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import utility.Constant;
 import utility.Email;
+import utility.Upload;
 import model.User;
+import model.User.Gender;
 import model.User.Status;
-import model.User.Role;
 
-import service.IUserService;
 import service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/verify", "/resetpassword", "/register", "/login", "/forgotpassword", "/logout" })
+@WebServlet(urlPatterns = { "/verify", "/resetpassword", "/register", "/login", "/forgotpassword", "/logout",
+		"/profile", "/editprofile" })
+@MultipartConfig
 public class HomeServlet extends HttpServlet {
 
-	IUserService userService = new UserServiceImpl();
+	UserServiceImpl userService = new UserServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-
 		String url = request.getRequestURL().toString();
 		if (url.contains("register")) {
 			request.getRequestDispatcher("/views/home/register.jsp").forward(request, response);
@@ -38,6 +40,12 @@ public class HomeServlet extends HttpServlet {
 			logout(request, response);
 		} else if (url.contains("forgotpassword")) {
 			request.getRequestDispatcher("/views/home/forgotpassword.jsp").forward(request, response);
+		} else if (url.contains("editprofile")) {
+			profileUser(request, response);
+			request.getRequestDispatcher("/views/home/editprofile.jsp").forward(request, response);
+		} else if (url.contains("profile")) {
+			profileUser(request, response);
+			request.getRequestDispatcher("/views/home/profile.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("/views/home.jsp").forward(request, response);
 		}
@@ -60,7 +68,52 @@ public class HomeServlet extends HttpServlet {
 			forgotpassword(request, response);
 		} else if (url.contains("resetpassword")) {
 			resetpassword(request, response);
+		} else if (url.contains("editprofile")) {
+			editprofile(request, response);
 		}
+	}
+
+	private void profileUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("account");
+		User retrievedUser = userService.findByEmail(user.getEmail());
+		request.setAttribute("user", retrievedUser);
+	}
+
+	private void editprofile(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Upload ulp = new Upload();
+		HttpSession session = request.getSession();
+		String email = request.getParameter("email");
+		User user = userService.findByEmail(email);
+		user.setName(request.getParameter("name"));
+		user.setBirthdate(request.getParameter("birthdate"));
+		user.setPhoneNumber(request.getParameter("phoneNumber"));
+		user.setPassword(request.getParameter("password"));
+		switch (request.getParameter("gender")) {
+		case "male":
+			user.setGender(Gender.MALE);
+			break;
+		case "female":
+			user.setGender(Gender.FEMALE);
+			break;
+		case "unknown":
+			user.setGender(Gender.UNKNOWN);
+			break;
+		}
+		Part filePart = request.getPart("image");
+		if (filePart != null) {
+			InputStream inputStream = filePart.getInputStream();
+			byte[] imageBytes = inputStream.readAllBytes();
+			String imageData = ulp.byteArrayToImageData(imageBytes);
+			if (imageBytes.length > 0) {
+				user.setImage(imageData);
+			}
+		}
+		userService.update(user);
+		session.setAttribute("user", user);
+		response.sendRedirect(request.getContextPath() + "/profile");
 	}
 
 	private void forgotpassword(HttpServletRequest request, HttpServletResponse response)
@@ -191,20 +244,8 @@ public class HomeServlet extends HttpServlet {
 	private void waiting(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		User u = (User) session.getAttribute("account");
-		User user = userService.findByEmail(u.getEmail());
-		if (user.getImage() != null) {
-			byte[] imageBytes = user.getImage();
-			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-			String imageData = "data:image/png;base64," + base64Image;
-			session.setAttribute("imageData", imageData);
-		}
 		if (session != null && session.getAttribute("account") != null) {
-			if (u.getRole() == Role.ADMIN) {
-				request.getRequestDispatcher("/views/admin/home.jsp").forward(request, response);
-			} else if (u.getRole() == Role.USER) {
-				request.getRequestDispatcher("/views/home.jsp").forward(request, response);
-			}
+			request.getRequestDispatcher("/views/home.jsp").forward(request, response);
 		} else {
 			getLogin(request, response);
 		}

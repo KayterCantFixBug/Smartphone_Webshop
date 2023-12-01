@@ -1,7 +1,5 @@
-
 <footer class="footer-section">
 	<div class="container relative">
-
 		<div class="sofa-img">
 			<img src="${pageContext.servletContext.contextPath}/images/foot.png"
 				alt="Image" class="img-fluid">

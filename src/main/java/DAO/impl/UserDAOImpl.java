@@ -4,25 +4,10 @@ import DAO.IUserDAO;
 import model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import utility.HibernateUtility;
 
-import java.util.List;
-
-public class UserDAOImpl implements IUserDAO {
-
-	@Override
-	public User findById(int id) {
-		Session session = HibernateUtility.getSessionFactory().openSession();
-		try {
-			return session.get(User.class, id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
+@SuppressWarnings("rawtypes")
+public class UserDAOImpl extends BaseDAOImpl implements IUserDAO {
 
 	@Override
 	public User findByEmail(String email) {
@@ -32,58 +17,6 @@ public class UserDAOImpl implements IUserDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			return null;
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public void insert(User user) {
-		System.out.println("User in insert function!!");
-		Transaction transaction = null;
-		Session session = HibernateUtility.getSessionFactory().openSession();
-		try {
-			transaction = session.beginTransaction();
-			session.save(user);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public void update(User user) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.update(user);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public void delete(User user) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.delete(user);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
 		}
 	}
 
@@ -97,24 +30,6 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	@SuppressWarnings({ "deprecation", "unchecked" })
-	@Override
-	public List<User> getAll() {
-		Transaction transaction = null;
-		List<User> listOfUser = null;
-		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			listOfUser = session.createQuery("from User").getResultList();
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-		return listOfUser;
 	}
 
 	@Override

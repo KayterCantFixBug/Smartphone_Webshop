@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,7 @@
 </head>
 <body>
 	<nav
-		class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
-		arial-label="Furni navigation bar">
+		class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark">
 		<div class="container">
 			<a class="navbar-brand" href="">TechGadget<span>.</span></a>
 			<button class="navbar-toggler" type="button"
@@ -27,11 +27,15 @@
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.servletContext.contextPath}/views/home.jsp">Home</a></li>
-					<li><a class="nav-link"
+					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.servletContext.contextPath}/views/shop.jsp">Shop</a></li>
-					<c:if test="${sessionScope.account != null}">
-						<li><a class="nav-link"
-							href="${pageContext.servletContext.contextPath}/order">Order</a></li>
+					<c:if test="${sessionScope.account.role eq 'ADMIN'}">
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.servletContext.contextPath}/listUser">User</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.servletContext.contextPath}/listProduct">Product</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.servletContext.contextPath}/listOrder">Order</a></li>
 					</c:if>
 				</ul>
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
@@ -45,9 +49,9 @@
 							<div style="padding-right: 5px;">
 								<a class="btn"
 									href="${pageContext.servletContext.contextPath}/profile"><c:if
-										test="${sessionScope.account.image != null}">
-										<img src="${imageData}" alt="avatar"
-											style="padding-right: 5px;" width="30" height="30">
+										test="${not empty sessionScope.account.image}">
+										<img src="${sessionScope.account.image}" alt="avatar"
+											style="border-radius: 50%;" width="40" height="40">
 									</c:if>${sessionScope.account.name}</a>
 							</div>
 							<div>

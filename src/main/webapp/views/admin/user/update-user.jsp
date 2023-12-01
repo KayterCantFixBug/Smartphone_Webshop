@@ -8,8 +8,16 @@
 		<div class="card-header text-center text-bg-success mb-5">Edit
 			User</div>
 		<div class="card-body">
-			<form action="editprofile" method="post"
-				enctype="multipart/form-data">
+			<form action="updateUser" method="post" enctype="multipart/form-data">
+				<div class="row align-items-center mb-3">
+					<div class="col-3">
+						<label class="form-label"><b>ID:</b></label>
+					</div>
+					<div class="col">
+						<input readonly type="text" name="id" class="form-control"
+							value="${requestScope.user.id}">
+					</div>
+				</div>
 				<div class="row align-items-center mb-3">
 					<div class="col-3">
 						<label class="form-label"><b>Name:</b></label>
@@ -25,13 +33,13 @@
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="role" id="User"
-							autocomplete="off" value="user" disabled
+							autocomplete="off" value="user"
 							<c:if test="${requestScope.user.role eq 'USER' }">checked</c:if>>
 						<label class="btn btn-outline-primary" for="User">USER</label>
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="role" id="Admin"
-							autocomplete="off" value="admin" disabled
+							autocomplete="off" value="admin"
 							<c:if test="${requestScope.user.role eq 'ADMIN' }">checked</c:if>>
 						<label class="btn btn-outline-primary" for="Admin">ADMIN</label>
 					</div>
@@ -42,13 +50,13 @@
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="status" id="active"
-							autocomplete="off" value="active" disabled
+							autocomplete="off" value="active"
 							<c:if test="${requestScope.user.status eq 'ACTIVE' }">checked</c:if>>
 						<label class="btn btn-outline-success" for="active">ACTIVE</label>
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="status" id="Inactive"
-							autocomplete="off" value="inactive" disabled
+							autocomplete="off" value="inactive"
 							<c:if test="${requestScope.user.status eq 'INACTIVE' }">checked</c:if>>
 						<label class="btn btn-outline-danger" for="Inactive">INACTIVE</label>
 					</div>

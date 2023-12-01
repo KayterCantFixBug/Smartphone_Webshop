@@ -1,14 +1,4 @@
 <%@ include file="/views/includes/header.jsp"%>
-<script>
-	function showPassword() {
-		var passwordField = document.getElementById("password");
-		if (passwordField.type == "password") {
-			passwordField.type = "text";
-		} else {
-			passwordField.type = "password";
-		}
-	}
-</script>
 <div class="container mt-5 mb-5 d-flex justify-content-center">
 	<div class="card" style="width: 30rem;">
 		<div class="card-header text-center text-bg-success mb-5">Login</div>

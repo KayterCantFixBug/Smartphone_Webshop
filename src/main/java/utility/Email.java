@@ -1,7 +1,5 @@
 package utility;
 
-import model.User;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;

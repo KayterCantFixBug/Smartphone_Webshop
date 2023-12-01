@@ -5,7 +5,7 @@
 			<div class="col-lg-5">
 				<div class="intro-excerpt">
 					<h1>
-						Modern Device <span clsas="d-block">Design Studio</span>
+						Modern Device <span class="d-block">Design Studio</span>
 					</h1>
 					<p class="mb-4">Devices for communication, assistance, and
 						entertainment. With top-notch connectivity and diverse apps, they
