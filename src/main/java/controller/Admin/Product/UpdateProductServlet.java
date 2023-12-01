@@ -12,6 +12,7 @@ import service.impl.UserServiceImpl;
 import utility.HibernateUtility;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@WebServlet(urlPatterns = {"/views/admin/updateProduct", "/updateProduct"})
 public class UpdateProductServlet extends HttpServlet {
     private ProductServiceImpl productService = new ProductServiceImpl();
     private BrandServiceImpl brandService = new BrandServiceImpl();
@@ -58,7 +60,7 @@ public class UpdateProductServlet extends HttpServlet {
             throws SQLException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        String brand_string = request.getParameter("brand_id");
+        String brand_string = request.getParameter("brand");
         String price_string = request.getParameter("price");
         String storage_string = request.getParameter("storage");
         String ram_string = request.getParameter("ram");
@@ -69,13 +71,18 @@ public class UpdateProductServlet extends HttpServlet {
 
         if (name.equals(null)) name ="";
         int brandId = 1;
-        if (brand_string != null && !brand_string.isEmpty()) {
+//        int brand_length = brandService.getAll(Brand.class).size();
+//        if (Integer.parseInt(brand_string) > brand_length)
+//            brandId = 1;
+//        else
+            if (brand_string != null && !brand_string.isEmpty()) {
             try {
                 brandId = Integer.parseInt(brand_string);
             } catch (NumberFormatException e) {
                 brandId = 1;
             }
         }
+
         double price = 0;
         if (price_string != null && !price_string.isEmpty()) {
             try {

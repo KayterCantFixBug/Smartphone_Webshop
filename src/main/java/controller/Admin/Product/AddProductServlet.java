@@ -48,7 +48,7 @@ public class AddProductServlet extends HttpServlet {
     private void insertProduct(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         String name = request.getParameter("name");
-        String brand_string = request.getParameter("brand_id");
+        String brand_string = request.getParameter("brand");
         String price_string = request.getParameter("price");
         String storage_string = request.getParameter("storage");
         String ram_string = request.getParameter("ram");
@@ -59,7 +59,11 @@ public class AddProductServlet extends HttpServlet {
 
         if (name == null) name ="";
         int brandId = 1;
-        if (brand_string != null && !brand_string.isEmpty()) {
+//        int brand_length = brandService.getAll(Brand.class).size();
+//        if (Integer.parseInt(brand_string) > brand_length)
+//            brandId = 1;
+//        else
+            if (brand_string != null && !brand_string.isEmpty()) {
             try {
                 brandId = Integer.parseInt(brand_string);
             } catch (NumberFormatException e) {
@@ -95,7 +99,7 @@ public class AddProductServlet extends HttpServlet {
 
         Brand brand = new Brand();
         brand = brandService.findById(Brand.class, brandId);
-        System.out.println(brand.getName());
+
         Product product = new Product(name, brand, price, storage, ram, os, description);
         productService.insert(product);
         response.sendRedirect("printListProduct");

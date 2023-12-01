@@ -13,6 +13,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "order_id")
     private  int id;
+
+    public enum Status {
+        NOT_DELIVERED, DELIVERED
+    }
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -24,9 +28,25 @@ public class Order {
     @Column (name = "address")
     private String address;
     @Column (name = "status")
-    private int status;
+    private Status status;
     @Column (name = "note")
     private String note;
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -52,13 +72,7 @@ public class Order {
         this.address = address;
     }
 
-    public int getStatus() {
-        return status;
-    }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getNote() {
         return note;
