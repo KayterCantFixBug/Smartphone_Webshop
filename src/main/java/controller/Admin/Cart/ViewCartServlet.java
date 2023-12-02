@@ -56,7 +56,7 @@ public class ViewCartServlet extends HttpServlet {
             // Check if user login or not
             String email = request.getParameter("email");
             // User do not login
-            if (email != null) {
+            if (email == null) {
                 String url= "/views/admin/cart.jsp";
                 request.getRequestDispatcher(url).forward(request, response);
             }
@@ -67,7 +67,7 @@ public class ViewCartServlet extends HttpServlet {
                 Cart cart = cartService.findByUser(user);
                 List<LineItem> listLineItems = cartService.getAllLineItem();
                 request.setAttribute("listLineItems", listLineItems);
-                String url= "/views/admin/brand-list.jsp";
+                String url= "/views/admin/cart.jsp";
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }
