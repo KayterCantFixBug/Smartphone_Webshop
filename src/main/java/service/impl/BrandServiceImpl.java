@@ -9,6 +9,6 @@ import service.IBrandService;
 
 import java.util.List;
 
-public class BrandServiceImpl extends BaseDAOImpl<Brand> implements IBrandService {
+public class BrandServiceImpl extends BaseServiceImpl<Brand> implements IBrandService {
 
 }

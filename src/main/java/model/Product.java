@@ -2,8 +2,10 @@ package model;
 
 import jakarta.persistence.*;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Table(name = "products")
@@ -124,5 +126,9 @@ public class Product {
         this.ram = ram;
         this.os = os;
         this.description = description;
+    }
+    public String getPriceCurrencyFormat() {
+        NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+        return currency.format(price);
     }
 }

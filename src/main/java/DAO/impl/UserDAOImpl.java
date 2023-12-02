@@ -9,7 +9,7 @@ import utility.HibernateUtility;
 
 import java.util.List;
 
-public class UserDAOImpl extends BaseDAOImpl implements IUserDAO {
+public class UserDAOImpl extends BaseDAOImpl<User> implements IUserDAO {
 
 
 	@Override
@@ -35,20 +35,4 @@ public class UserDAOImpl extends BaseDAOImpl implements IUserDAO {
 		}
 	}
 
-//	@Override
-//	public List<User> getAll() {
-//		Transaction transaction = null;
-//		List<User> listOfUser = null;
-//		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
-//			transaction = session.beginTransaction();
-//			listOfUser = session.createQuery("from User").getResultList();
-//			transaction.commit();
-//		} catch (Exception e) {
-//			if (transaction != null) {
-//				transaction.rollback();
-//			}
-//			e.printStackTrace();
-//		}
-//		return listOfUser;
-//	}
 }

@@ -8,6 +8,6 @@ import utility.HibernateUtility;
 
 import java.util.List;
 
-public class BrandDAOImpl extends BaseDAOImpl implements IBrandDAO {
+public class BrandDAOImpl extends BaseDAOImpl<Brand> implements IBrandDAO {
 
 }
