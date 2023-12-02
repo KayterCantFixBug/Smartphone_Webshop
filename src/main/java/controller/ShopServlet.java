@@ -12,12 +12,11 @@ import model.Product;
 import service.impl.ProductServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/shop"})
+@WebServlet(urlPatterns = { "/shop" })
 @MultipartConfig
 public class ShopServlet extends HttpServlet {
 	ProductServiceImpl productService = new ProductServiceImpl();
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,15 +24,18 @@ public class ShopServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String url = request.getRequestURL().toString();
 		if (url.contains("shop")) {
-			List<Product> listProduct = productService.filterProduct("", 1);
-			int nop = (productService.getAll(Product.class).size() / 8) + 1;
+			int currentPage = 1;
+			String search = "";
+			List<Product> listProduct = productService.filterProduct(search, currentPage);
+			int nop = 5;
 			request.setAttribute("listProduct", listProduct);
 			request.setAttribute("numberOfPages", nop);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("search", search);
 			request.getRequestDispatcher("/views/shop.jsp").forward(request, response);
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,11 +43,14 @@ public class ShopServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String url = request.getRequestURL().toString();
 		if (url.contains("shop")) {
-			List<Product> listProduct = productService.filterProduct(request.getParameter("search"),
-					Integer.parseInt(request.getParameter("page")));
-			int nop = (productService.getAll(Product.class).size() / 8) + 1;
+			int currentPage = Integer.parseInt(request.getParameter("page"));
+			String search = request.getParameter("search");
+			List<Product> listProduct = productService.filterProduct(search, currentPage);
+			int nop = 5;
 			request.setAttribute("listProduct", listProduct);
 			request.setAttribute("numberOfPages", nop);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("search", search);
 			request.getRequestDispatcher("/views/shop.jsp").forward(request, response);
 		}
 	}

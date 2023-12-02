@@ -1,13 +1,15 @@
 <%@ include file="/views/includes/header.jsp"%>
 <div class="untree_co-section product-section before-footer-section">
 	<form action="shop" method="post">
+		<input type="hidden" name="currentPage" value="${currentPage}">
 		<div class="container">
 			<div class="row mb-5">
 				<div class="container" role="search">
 					<div class="row justify-content-center pt-2">
 						<div class="col-6">
 							<input class="form-control me-2" type="search"
-								placeholder="Search" name="search" aria-label="Search">
+								placeholder="Search" name="search" aria-label="Search"
+								value="${search }">
 						</div>
 						<div class="col-auto">
 							<button class="btn btn-outline-success" type="submit">Search</button>

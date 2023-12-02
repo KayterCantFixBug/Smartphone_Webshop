@@ -19,10 +19,9 @@ public class ProductDAOImpl extends BaseDAOImpl implements IProductDAO {
 			String hql = "FROM Product p " + "WHERE p.description LIKE :keyword " + "OR p.name LIKE :keyword "
 					+ "OR p.os LIKE :keyword " + "OR CAST(p.price AS string) LIKE :keyword "
 					+ "OR CAST(p.quantity AS string) LIKE :keyword " + "OR CAST(p.ram AS string) LIKE :keyword "
-					+ "OR CAST(p.storage AS string) LIKE :keyword " + "OR p.brand.name LIKE :brandName";
+					+ "OR CAST(p.storage AS string) LIKE :keyword ";
 			List<Product> products = session.createQuery(hql, Product.class).setParameter("keyword", searchKeyword)
-					.setParameter("brandName", searchKeyword).setFirstResult((pageNum - 1) * pageSize)
-					.setMaxResults(pageSize).getResultList();
+					.setFirstResult((pageNum - 1) * pageSize).setMaxResults(pageSize).getResultList();
 			return products;
 		} catch (HibernateException e) {
 			e.printStackTrace();
