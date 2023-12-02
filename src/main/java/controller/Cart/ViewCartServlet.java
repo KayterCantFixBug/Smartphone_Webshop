@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = {"/views/admin/viewCart", "/viewCart"})
+@WebServlet(urlPatterns = {"/views/viewCart", "/viewCart"})
 public class ViewCartServlet extends HttpServlet {
     private OrderServiceImpl orderService = new OrderServiceImpl();
     private UserServiceImpl userService = new UserServiceImpl();
@@ -43,7 +43,7 @@ public class ViewCartServlet extends HttpServlet {
 
         String url = request.getRequestURL().toString();
         if (url.contains("viewCart")) {
-            request.getRequestDispatcher("/views/admin/cart.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
@@ -67,7 +67,7 @@ public class ViewCartServlet extends HttpServlet {
                 Cart cart = cartService.findByUser(user);
                 List<LineItem> listLineItems = cartService.getAllLineItem();
                 request.setAttribute("listLineItems", listLineItems);
-                String url= "/views/admin/cart.jsp";
+                String url= "/views/cart.jsp";
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }

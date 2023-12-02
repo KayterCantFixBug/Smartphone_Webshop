@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = {"/views/admin/updateCart", "/updateCart"})
+@WebServlet(urlPatterns = {"/views/updateCart", "/updateCart"})
 public class UpdateCartServlet extends HttpServlet {
     private OrderServiceImpl orderService = new OrderServiceImpl();
     private LineItemServiceImpl lineItemService = new LineItemServiceImpl();
@@ -42,7 +42,7 @@ public class UpdateCartServlet extends HttpServlet {
 
         String url = request.getRequestURL().toString();
         if (url.contains("updateCart")) {
-            request.getRequestDispatcher("/views/admin/cart.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/views/home.jsp").forward(request, response);
         }
