@@ -11,7 +11,7 @@
 						entertainment. With top-notch connectivity and diverse apps, they
 						redefine convenience and productivity in everyday life.</p>
 					<p>
-						<a href="${pageContext.servletContext.contextPath}/views/shop.jsp"
+						<a href="${pageContext.servletContext.contextPath}/shop"
 							class="btn btn-secondary me-2">Shop Now</a>
 					</p>
 				</div>
@@ -104,19 +104,67 @@
 	</div>
 </div>
 
-<div class="untree_co-section">
+<div class="we-help-section">
 	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-7 mb-5 mb-lg-0">
+				<div class="imgs-grid">
+					<div class="grid grid-1">
+						<img
+							src="${pageContext.servletContext.contextPath}/images/img-grid-1.jpg"
+							alt="Untree.co">
+					</div>
+					<div class="grid grid-2">
+						<img
+							src="${pageContext.servletContext.contextPath}/images/img-grid-2.jpg"
+							alt="Untree.co">
+					</div>
+					<div class="grid grid-3">
+						<img
+							src="${pageContext.servletContext.contextPath}/images/img-grid-3.jpg"
+							alt="Untree.co">
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5 ps-lg-5">
+				<h2 class="section-title mb-4">We Help You Access The World Of
+					Future Technology</h2>
+				<p>Our website is the gateway to accessing future technology
+					through smartphones. We offer a range of top-notch products, from
+					leading brands to the latest tech innovations, enabling you to
+					connect with the world through the most advanced devices.</p>
+
+				<ul class="list-unstyled custom-list my-4">
+					<li>Wide range of cutting-edge smartphones catering to
+						different preferences.</li>
+					<li>Curated collection from leading brands for quality
+						assurance.</li>
+					<li>Updated inventory featuring the latest tech advancements.</li>
+					<li>Devices that ensure seamless global connectivity, keeping
+						you connected worldwide.</li>
+				</ul>
+				<p>
+					<a href="${pageContext.servletContext.contextPath}/shop"
+						class="btn">Explore</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="untree_co-section">
+	<div class="container text-center">
 		<div class="row mb-5">
 			<div class="col-lg-5 mx-auto text-center">
 				<h2 class="section-title">Our Team</h2>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-4">
+			<div class="col">
 				<img
 					src="${pageContext.servletContext.contextPath}/images/trong.jpg"
-					class="img-fluid mb-5">
-				<h3 clas>
+					class="img-fluid mb-5 w-50" style="border-radius: 50%;">
+				<h3>
 					<a href="https://web.facebook.com/profile.php?id=100010912861774"
 						target="_blank"><span class="">Kien</span> Duc Trong</a>
 				</h3>
@@ -131,12 +179,12 @@
 						class="icon-arrow_forward"></span></a>
 				</p>
 			</div>
-			<div class="col-4">
+			<div class="col">
 				<img
 					src="${pageContext.servletContext.contextPath}/images/trung.jpg"
-					class="img-fluid mb-5">
+					class="img-fluid mb-5 w-50" style="border-radius: 50%;">
 
-				<h3 clas>
+				<h3>
 					<a href="https://web.facebook.com/vantrungbusiness" target="_blank"><span
 						class="">Nguyen Tran</span><br> Van Trung</a>
 				</h3>
@@ -150,19 +198,6 @@
 						class="more dark">Learn More <span class="icon-arrow_forward"></span></a>
 				</p>
 
-			</div>
-			<div class="col-4">
-				<img src="${pageContext.servletContext.contextPath}/images/duy.jpg"
-					class="img-fluid mb-5">
-				<h3 clas>
-					<a href="#"><span class="">Ngo Dinh</span><br> Quoc Duy</a>
-				</h3>
-				<span class="d-block position mb-4">CEO, Founder.</span>
-				<p>The smartphone go to school to improve its "cell-f" esteem.</p>
-				<p class="mb-0">
-					<a href="#" class="more dark">Learn More <span
-						class="icon-arrow_forward"></span></a>
-				</p>
 			</div>
 		</div>
 	</div>

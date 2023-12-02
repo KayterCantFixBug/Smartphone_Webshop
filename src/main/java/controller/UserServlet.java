@@ -62,7 +62,7 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Upload ulp = new Upload();
 		int id = Integer.parseInt(request.getParameter("id"));
-		User user =  userService.findById(User.class, id);
+		User user = userService.findById(User.class, id);
 		user.setName(request.getParameter("name"));
 		user.setBirthdate(request.getParameter("birthdate"));
 		user.setPhoneNumber(request.getParameter("phoneNumber"));

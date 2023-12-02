@@ -28,10 +28,12 @@
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.servletContext.contextPath}/views/home.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.servletContext.contextPath}/views/shop.jsp">Shop</a></li>
+						href="${pageContext.servletContext.contextPath}/shop">Shop</a></li>
 					<c:if test="${sessionScope.account.role eq 'ADMIN'}">
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.servletContext.contextPath}/listUser">User</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.servletContext.contextPath}/listBrand">Brand</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.servletContext.contextPath}/listProduct">Product</a></li>
 						<li class="nav-item"><a class="nav-link"

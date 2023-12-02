@@ -2,138 +2,135 @@ package model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name = "product_id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "product_id")
+	private int id;
+	@Column(name = "name")
+	private String name;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "brand_id")
+	private Brand brand;
+	@Column(name = "price")
+	private double price;
+	@Column(name = "storage")
+	private double storage;
+	@Column(name = "ram")
+	private double ram;
+	@Column(name = "os")
+	private String os;
+	@Column(name = "description", columnDefinition = "TEXT")
+	private String description;
+	@Column(name = "image", columnDefinition = "TEXT")
+	private String image;
+	@Column(name = "quantity")
+	private int quantity;
 
-    private String name;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+	public int getQuantity() {
+		return quantity;
+	}
 
-    @Column(name = "price")
-    private double price;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
-    @Column(name = "color")
-    private String color;
-    @Column(name = "storage")
-    private String storage;
-    @Column(name = "camera")
-    private String camera;
-    @Column(name = "resolution")
-    private double resolution;
-    @Column(name = "cpu")
-    private String cpu;
-    @Column(name = "ram")
-    private double ram;
-    @Column(name = "os")
-    private String os;
-    @Column(name = "description")
-    private String description;
+	public String getImage() {
+		return image;
+	}
 
-    public Product (){}
+	public void setImage(String image) {
+		this.image = image;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public Product() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+	public double getStorage() {
+		return storage;
+	}
 
-    public String getStorage() {
-        return storage;
-    }
+	public void setStorage(double storage) {
+		this.storage = storage;
+	}
 
-    public void setStorage(String storage) {
-        this.storage = storage;
-    }
+	public double getRam() {
+		return ram;
+	}
 
-    public String getCamera() {
-        return camera;
-    }
+	public void setRam(double ram) {
+		this.ram = ram;
+	}
 
-    public void setCamera(String camera) {
-        this.camera = camera;
-    }
+	public String getOs() {
+		return os;
+	}
 
-    public double getResolution() {
-        return resolution;
-    }
+	public void setOs(String os) {
+		this.os = os;
+	}
 
-    public void setResolution(double resolution) {
-        this.resolution = resolution;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getCpu() {
-        return cpu;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
+	public Brand getBrand() {
+		return brand;
+	}
 
-    public double getRam() {
-        return ram;
-    }
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
 
-    public void setRam(double ram) {
-        this.ram = ram;
-    }
+	public Product(int id, String name, Brand brand, double price, double storage, double ram, String os,
+			String description) {
+		this.id = id;
+		this.name = name;
+		this.brand = brand;
+		this.price = price;
+		this.storage = storage;
+		this.ram = ram;
+		this.os = os;
+		this.description = description;
+	}
 
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
+	public Product(String name, Brand brand, double price, double storage, double ram, String os, String description) {
+		this.name = name;
+		this.brand = brand;
+		this.price = price;
+		this.storage = storage;
+		this.ram = ram;
+		this.os = os;
+		this.description = description;
+	}
 }

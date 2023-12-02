@@ -16,8 +16,6 @@
 		<mapping class="model.User" />
 		<mapping class="model.Brand" />
 		<mapping class="model.Product" />
-		<mapping class="model.Review" />
-		<mapping class="model.Storage" />
 		<mapping class="model.Order" />
 		<mapping class="model.OrderDetail" />
 	</session-factory>

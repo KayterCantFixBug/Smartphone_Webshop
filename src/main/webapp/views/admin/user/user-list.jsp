@@ -1,7 +1,7 @@
 <%@ include file="/views/includes/header.jsp"%>
 <div class="untree_co-section product-section before-footer-section">
-	<div class="container">
-		<h5 class="text-center">User Manager</h5>
+	<div class="container text-center">
+		<h5>User Manager</h5>
 		<table>
 			<thead>
 				<tr>

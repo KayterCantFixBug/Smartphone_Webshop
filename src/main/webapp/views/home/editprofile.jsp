@@ -27,13 +27,13 @@
 						<input type="radio" class="btn-check" name="role" id="User"
 							autocomplete="off" value="user" disabled
 							<c:if test="${requestScope.user.role eq 'USER' }">checked</c:if>>
-						<label class="btn btn-outline-primary" for="User">USER</label>
+						<label class="btn btn-outline-primary w-100" for="User">USER</label>
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="role" id="Admin"
 							autocomplete="off" value="admin" disabled
 							<c:if test="${requestScope.user.role eq 'ADMIN' }">checked</c:if>>
-						<label class="btn btn-outline-primary" for="Admin">ADMIN</label>
+						<label class="btn btn-outline-primary w-100" for="Admin">ADMIN</label>
 					</div>
 				</div>
 				<div class="row align-items-center mb-3">
@@ -44,13 +44,13 @@
 						<input type="radio" class="btn-check" name="status" id="active"
 							autocomplete="off" value="active" disabled
 							<c:if test="${requestScope.user.status eq 'ACTIVE' }">checked</c:if>>
-						<label class="btn btn-outline-success" for="active">ACTIVE</label>
+						<label class="btn btn-outline-success w-100" for="active">ACTIVE</label>
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="status" id="Inactive"
 							autocomplete="off" value="inactive" disabled
 							<c:if test="${requestScope.user.status eq 'INACTIVE' }">checked</c:if>>
-						<label class="btn btn-outline-danger" for="Inactive">INACTIVE</label>
+						<label class="btn btn-outline-danger w-100" for="Inactive">INACTIVE</label>
 					</div>
 				</div>
 				<div class="row align-items-center mb-3">
@@ -87,19 +87,19 @@
 						<input type="radio" class="btn-check" name="gender" id="male"
 							autocomplete="off" value="male"
 							<c:if test="${requestScope.user.gender eq 'MALE' }">checked</c:if>>
-						<label class="btn btn-outline-primary" for="male">MALE</label>
+						<label class="btn btn-outline-primary w-100" for="male">MALE</label>
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="gender" id="female"
 							autocomplete="off" value="female"
 							<c:if test="${requestScope.user.gender eq 'FEMALE' }">checked</c:if>>
-						<label class="btn btn-outline-primary" for="female">FEMALE</label>
+						<label class="btn btn-outline-primary w-100" for="female">FEMALE</label>
 					</div>
 					<div class="col">
 						<input type="radio" class="btn-check" name="gender" id="unknown"
 							autocomplete="off" value="unknown"
 							<c:if test="${requestScope.user.gender eq 'UNKNOWN' }">checked</c:if>>
-						<label class="btn btn-outline-danger" for="unknown">UNKNOWN</label>
+						<label class="btn btn-outline-danger w-100" for="unknown">UNKNOWN</label>
 					</div>
 				</div>
 				<div class="row align-items-center mb-3">
