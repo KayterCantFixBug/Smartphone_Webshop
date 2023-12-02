@@ -69,10 +69,10 @@ public class UpdateCartServlet extends HttpServlet {
 
             lineItem.setQuantity(quantity);
             // Check if user login or not
-            String email = request.getParameter("email");
+            HttpSession session = request.getSession();
+            User user_login = (User) session.getAttribute("account");
             // User do not login
-            if (email == null) {
-                HttpSession session = request.getSession();
+            if (user_login.getEmail() == null) {
                 Cart cart = (Cart) session.getAttribute("cart");
 
                 if (quantity > 0) {

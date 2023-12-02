@@ -54,16 +54,17 @@ public class ViewCartServlet extends HttpServlet {
 
         try {
             // Check if user login or not
-            String email = request.getParameter("email");
+            HttpSession session = request.getSession();
+            User user_login = (User) session.getAttribute("account");
             // User do not login
-            if (email == null) {
+            if (user_login.getEmail() == null) {
                 String url= "/views/admin/cart.jsp";
                 request.getRequestDispatcher(url).forward(request, response);
             }
             // User logged in
             else{
                 // find cart of user
-                User user = userService.findByEmail(email);
+                User user = userService.findByEmail(user_login.getEmail());
                 Cart cart = cartService.findByUser(user);
                 List<LineItem> listLineItems = cartService.getAllLineItem();
                 request.setAttribute("listLineItems", listLineItems);

@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import model.Order;
 import service.impl.UserServiceImpl;
 
-@WebServlet(urlPatterns = {"/views/admin/addOrder", "/addOrder"})
+@WebServlet(urlPatterns = {"/views/admin/checkou", "/addOrder"})
 public class AddOrderServlet {
     private OrderServiceImpl orderService = new OrderServiceImpl();
     private UserServiceImpl userService = new UserServiceImpl();
