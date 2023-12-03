@@ -1,9 +1,8 @@
 <%@ include file="/views/includes/header.jsp"%>
 <div class="untree_co-section product-section before-footer-section">
-	<form action="shop" method="post">
-		<input type="hidden" name="currentPage" value="${currentPage}">
-		<div class="container">
-			<div class="row mb-5">
+	<div class="container">
+		<div class="row mb-5">
+			<form action="search" method="post">
 				<div class="container" role="search">
 					<div class="row justify-content-center pt-2">
 						<div class="col-6">
@@ -16,27 +15,30 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<c:forEach var="product" items="${listProduct}">
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#"> <img
-							src="${pageContext.servletContext.contextPath}/images/product.png"
-							class="img-fluid product-thumbnail" width="100" height="100">
-							<h3 class="product-title">${product.name }</h3> <strong
-							class="product-price">$${product.price}</strong> <span
-							class="icon-cross"> <img
-								src="${pageContext.servletContext.contextPath}/images/cross.svg"
-								class="img-fluid">
-						</span>
-						</a>
-						<div class="text-center pt-4">
-							<a href="#" class="btn btn-sm btn-outline-black">Details</a>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
+			</form>
 		</div>
+		<div class="row">
+			<c:forEach var="product" items="${listProduct}">
+				<div class="col-12 col-md-4 col-lg-3 mb-5">
+					<a class="product-item" href="#"> <img
+						src="${pageContext.servletContext.contextPath}/images/product.png"
+						class="img-fluid product-thumbnail" width="100" height="100">
+						<h3 class="product-title">${product.name }</h3> <strong
+						class="product-price">$${product.price}</strong> <span
+						class="icon-cross"> <img
+							src="${pageContext.servletContext.contextPath}/images/cross.svg"
+							class="img-fluid">
+					</span>
+					</a>
+					<div class="text-center pt-4">
+						<a href="#" class="btn btn-sm btn-outline-black">Details</a>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	<form action="paging" method="post">
+		<input type="hidden" name="search" value="${search }">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="#">Previous</a></li>

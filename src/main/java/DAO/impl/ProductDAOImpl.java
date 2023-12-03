@@ -28,4 +28,21 @@ public class ProductDAOImpl extends BaseDAOImpl implements IProductDAO {
 			return null;
 		}
 	}
+
+	@Override
+	public List<Product> searchProduct(String search) {
+		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+			String searchKeyword = "%" + search + "%";
+			String hql = "FROM Product p " + "WHERE p.description LIKE :keyword " + "OR p.name LIKE :keyword "
+					+ "OR p.os LIKE :keyword " + "OR CAST(p.price AS string) LIKE :keyword "
+					+ "OR CAST(p.quantity AS string) LIKE :keyword " + "OR CAST(p.ram AS string) LIKE :keyword "
+					+ "OR CAST(p.storage AS string) LIKE :keyword ";
+			List<Product> products = session.createQuery(hql, Product.class).setParameter("keyword", searchKeyword)
+					.getResultList();
+			return products;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

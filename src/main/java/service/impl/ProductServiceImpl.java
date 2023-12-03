@@ -15,4 +15,9 @@ public class ProductServiceImpl extends BaseServiceImpl implements IProductServi
 		return userDAO.filterProduct(search, pageNum);
 	}
 
+	@Override
+	public List<Product> searchProduct(String search) {
+		return userDAO.searchProduct(search);
+	}
+
 }

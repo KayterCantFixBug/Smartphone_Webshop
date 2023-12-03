@@ -17,7 +17,6 @@
 					<th>Quantity</th>
 					<th></th>
 					<th></th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,12 +39,6 @@
 						<td><c:out value="${product.os}" /></td>
 						<td><c:out value="${product.description}" /></td>
 						<td><c:out value="${product.quantity}" /></td>
-						<td>
-							<form action="viewProduct" method="get">
-								<input type="hidden" name="id" value="${product.id}"> <input
-									type="submit" value="View">
-							</form>
-						</td>
 						<td>
 							<form action="updateProduct" method="get">
 								<input type="hidden" name="id" value="${product.id}"> <input

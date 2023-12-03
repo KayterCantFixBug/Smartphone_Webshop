@@ -12,7 +12,7 @@ import model.Product;
 import service.impl.ProductServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/shop" })
+@WebServlet(urlPatterns = { "/shop", "/paging", "/search" })
 @MultipartConfig
 public class ShopServlet extends HttpServlet {
 	ProductServiceImpl productService = new ProductServiceImpl();
@@ -24,14 +24,10 @@ public class ShopServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String url = request.getRequestURL().toString();
 		if (url.contains("shop")) {
-			int currentPage = 1;
-			String search = "";
-			List<Product> listProduct = productService.filterProduct(search, currentPage);
-			int nop = 5;
+			List<Product> listProduct = productService.filterProduct("", 1);
 			request.setAttribute("listProduct", listProduct);
-			request.setAttribute("numberOfPages", nop);
-			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("search", search);
+			request.setAttribute("search", "");
+			request.setAttribute("numberOfPages", productService.searchProduct("").size() / 8 + 1);
 			request.getRequestDispatcher("/views/shop.jsp").forward(request, response);
 		}
 	}
@@ -42,13 +38,15 @@ public class ShopServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String url = request.getRequestURL().toString();
-		if (url.contains("shop")) {
-			int currentPage = Integer.parseInt(request.getParameter("page"));
+		int currentPage = 1;
+		if (url.contains("paging") || url.contains("search")) {
+			if (url.contains("paging")) {
+				currentPage = Integer.parseInt(request.getParameter("page"));
+			}
 			String search = request.getParameter("search");
 			List<Product> listProduct = productService.filterProduct(search, currentPage);
-			int nop = 5;
 			request.setAttribute("listProduct", listProduct);
-			request.setAttribute("numberOfPages", nop);
+			request.setAttribute("numberOfPages", productService.searchProduct(search).size() / 8 + 1);
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("search", search);
 			request.getRequestDispatcher("/views/shop.jsp").forward(request, response);
