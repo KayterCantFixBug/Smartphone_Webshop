@@ -15,7 +15,7 @@ import service.impl.ProductServiceImpl;
 import service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/addToCart", "/removeCart", "/updateCart", "/viewCart" })
+@WebServlet(urlPatterns = { "/addToCart", "/removeCart", "/updateCart", "/viewCart", "/checkout" })
 @MultipartConfig
 public class CartServlet extends HttpServlet {
 
@@ -48,9 +48,27 @@ public class CartServlet extends HttpServlet {
 			updateCart(request, response);
 		} else if (url.contains("removeCart")) {
 			removeCart(request, response);
+		} else if (url.contains("checkout")) {
+			checkout(request, response);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private void checkout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+//		HttpSession session = request.getSession();
+//		Order order = (Order) session.getAttribute("order");
+//		if (order == null) {
+//			order = new Order();
+//		}
+//		int product_id = Integer.parseInt(request.getParameter("product_id"));
+//		OrderDetail orderDetail = new OrderDetail();
+//		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
+//		order.addOrderDetail(orderDetail);
+//		session.setAttribute("order", order);
+//		response.sendRedirect("viewCart");
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -2,6 +2,7 @@
 <div class="untree_co-section product-section before-footer-section">
 	<div class="container d-flex justify-content-center">
 		<form action="addToCart" method="post">
+			<input type="hidden" name="product_id" value="${product.id }">
 			<div class="row">
 				<div class="card" style="width: 20rem;">
 					<c:if test="${not empty requestScope.product.image}">
