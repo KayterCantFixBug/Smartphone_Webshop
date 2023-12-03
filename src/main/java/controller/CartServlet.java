@@ -250,12 +250,12 @@ public class CartServlet extends HttpServlet {
 			else{
 				// find cart of user
 				User user = userService.findByEmail(user_login.getEmail());
-				Cart cart = cartService.findByUser(user);
-				List<LineItem> lineItems = cartService.getAllLineItem(cart.getId());
+				Cart cart_database = cartService.findByUser(user);
+				List<LineItem> lineItems = cartService.getAllLineItem(cart_database.getId());
 //				for (int i = 0;  i < lineItems.size(); i++)
 //					System.out.println("LineitemID=" + lineItems.get(i).getId());
-
-				request.setAttribute("lineItems", lineItems);
+				cart_database.setLineItems(lineItems);
+				request.setAttribute("cart_database", cart_database);
 				String url= "/views/cart.jsp";
 				request.getRequestDispatcher(url).forward(request, response);
 			}
