@@ -16,7 +16,7 @@
 				<h2 class="display-3 text-black">Thank you!</h2>
 				<p class="lead mb-5">You order was successfuly completed.</p>
 				<p>
-					<a href="${pageContext.servletContext.contextPath}/views/shop.jsp" class="btn btn-sm btn-outline-black">Back
+					<a href="${pageContext.servletContext.contextPath}/shop" class="btn btn-sm btn-outline-black">Back
 						to shop</a>
 				</p>
 			</div>

@@ -68,6 +68,7 @@ public class OrderDetail {
 
 	public OrderDetail() {
 		this.quantity = 1;
+		this.product = new Product();
 	}
 
 	public OrderDetail(Product product, int quantity) {

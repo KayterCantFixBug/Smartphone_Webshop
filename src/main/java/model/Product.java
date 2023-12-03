@@ -49,6 +49,7 @@ public class Product {
 	}
 
 	public Product() {
+		this.brand = new Brand();
 	}
 
 	public int getId() {

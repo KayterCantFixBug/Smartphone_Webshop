@@ -24,8 +24,9 @@
 									<form action="updateCart" method="post">
 										<input type=text name="quantity" value='${item.quantity}'
 											pattern="[1-9]+" title="Enter a valid number!" required>
-										<input type="hidden" name="id" value="${item.id}"> <input
-											type="submit" value="Update">
+										<input type="hidden" name="product_id"
+											value="${item.product.id}"> <input type="submit"
+											value="Update">
 									</form>
 								</td>
 								<td><c:if test="${not empty item.product.image}">
@@ -39,8 +40,9 @@
 								<td><c:out value="${item.totalCurrencyFormat}" /></td>
 								<td>
 									<form action="removeCart" method="post">
-										<input type="hidden" name="id" value="${item.id}"> <input
-											type="submit" value="Delete">
+										<input type="hidden" name="product_id"
+											value="${item.product.id}"> <input type="submit"
+											value="Delete">
 									</form>
 								</td>
 							</tr>
@@ -78,9 +80,17 @@
 
 							<div class="row">
 								<div class="col-md-12">
-									<button class="btn btn-black btn-lg py-3 btn-block"
-										onclick="window.location='checkout.html'">Proceed To
-										Checkout</button>
+									<c:choose>
+										<c:when test="${sessionScope.account != null}">
+											<button class="btn btn-black btn-lg py-3 btn-block"
+												onclick="window.location='checkout'">Proceed To
+												Checkout</button>
+										</c:when>
+										<c:otherwise>
+											<button class="btn btn-black btn-lg py-3 btn-block"
+												onclick="window.location='login'">Login To Checkout</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>

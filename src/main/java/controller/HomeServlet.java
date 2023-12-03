@@ -168,7 +168,6 @@ public class HomeServlet extends HttpServlet {
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("account");
-		session.removeAttribute("order");
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {

@@ -31,10 +31,6 @@ public class Order {
 		this.phone = phone;
 	}
 
-	public enum Status {
-		DELIVERING, COMPLETE
-	}
-
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -47,8 +43,6 @@ public class Order {
 	private String address;
 	@Column(name = "phone")
 	private String phone;
-	@Column(name = "status")
-	private Status status;
 	@Column(name = "note")
 	private String note;
 
@@ -62,14 +56,6 @@ public class Order {
 
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 
 	public int getId() {

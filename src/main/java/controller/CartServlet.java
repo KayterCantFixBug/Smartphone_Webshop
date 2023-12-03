@@ -11,6 +11,7 @@ import model.Order;
 import model.OrderDetail;
 import model.Product;
 import service.impl.OrderDetailServiceImpl;
+import service.impl.OrderServiceImpl;
 import service.impl.ProductServiceImpl;
 import service.impl.UserServiceImpl;
 
@@ -22,6 +23,7 @@ public class CartServlet extends HttpServlet {
 	ProductServiceImpl productService = new ProductServiceImpl();
 	UserServiceImpl userService = new UserServiceImpl();
 	OrderDetailServiceImpl orderDetailService = new OrderDetailServiceImpl();
+	OrderServiceImpl orderService = new OrderServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -56,6 +58,13 @@ public class CartServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	private void checkout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Order order = (Order) session.getAttribute("order");
+		if (order == null) {
+			order = new Order();
+		}
+		orderService.insert(order);
+		request.getRequestDispatcher("/views/thankyou.jsp").forward(request, response);
 //		HttpSession session = request.getSession();
 //		Order order = (Order) session.getAttribute("order");
 //		if (order == null) {
@@ -68,7 +77,7 @@ public class CartServlet extends HttpServlet {
 //		session.setAttribute("order", order);
 //		response.sendRedirect("viewCart");
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -97,7 +106,7 @@ public class CartServlet extends HttpServlet {
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
 		orderDetail.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-		order.addOrderDetail(orderDetail);
+		order.updateOrderDetail(orderDetail);
 		session.setAttribute("order", order);
 		response.sendRedirect("viewCart");
 	}
