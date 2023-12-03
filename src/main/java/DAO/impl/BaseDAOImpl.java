@@ -31,7 +31,8 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 	@Override
 	public void update(E e) {
 		Transaction transaction = null;
-		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+		Session session = HibernateUtility.getSessionFactory().openSession();
+		try {
 			transaction = session.beginTransaction();
 			session.update(e);
 			transaction.commit();
@@ -40,6 +41,8 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 				transaction.rollback();
 			}
 			ex.printStackTrace();
+		}finally {
+			session.close();
 		}
 	}
 
@@ -47,7 +50,8 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 	@Override
 	public <E> void delete(Class<E> entityClass, int id) {
 		Transaction transaction = null;
-		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+		Session session = HibernateUtility.getSessionFactory().openSession();
+		try {
 			transaction = session.beginTransaction();
 			E e = session.get(entityClass, id);
 			if (e != null) {
@@ -59,21 +63,30 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 				transaction.rollback();
 			}
 			ex.printStackTrace();
+		} finally {
+			session.close();
 		}
 	}
 
 	@SuppressWarnings("hiding")
 	@Override
 	public <E> E findById(Class<E> entityClass, int id) {
+		Transaction transaction = null;
 		Session session = HibernateUtility.getSessionFactory().openSession();
+		E entityClass1 = null;
 		try {
-			return session.get(entityClass, id);
+			transaction = session.beginTransaction();
+			entityClass1 = session.get(entityClass, id);
+			transaction.commit();
 		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
-		return null;
+		return entityClass1;
 
 	}
 
@@ -82,7 +95,8 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 	public <E> List<E> getAll(Class<E> entityClass) {
 		Transaction transaction = null;
 		List<E> listOfe = null;
-		try (Session session = HibernateUtility.getSessionFactory().openSession()) {
+		Session session = HibernateUtility.getSessionFactory().openSession();
+		try {
 			transaction = session.beginTransaction();
 			listOfe = session.createQuery("from " + entityClass.getSimpleName()).getResultList();
 			transaction.commit();
@@ -91,6 +105,9 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 				transaction.rollback();
 			}
 			e.printStackTrace();
+		}
+		finally {
+			session.close();
 		}
 		return listOfe;
 	}

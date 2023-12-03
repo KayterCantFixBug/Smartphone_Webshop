@@ -36,7 +36,7 @@ public class Order {
 	private User user;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_detail_id")
-	private List<OrderDetail> orderDetails;
+	private List<OrderDetail> orderDetails = new ArrayList<>();
 	@Column(name = "date")
 	private String Date;
 	@Column(name = "address")

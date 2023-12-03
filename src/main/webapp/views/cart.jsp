@@ -18,7 +18,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="item" items="${order.orderDetails}">
+					<c:if test="">
+
+					</c:if>
+						<c:forEach var="item" items="${cart.lineItems}">
 							<tr>
 								<td>
 									<form action="updateCart" method="post">
@@ -74,7 +77,7 @@
 									<span class="text-black">Total</span>
 								</div>
 								<div class="col-md-6 text-right">
-									<strong class="text-black">${order.totalCurrencyFormat }</strong>
+									<strong class="text-black">${cart.totalCurrencyFormat }</strong>
 								</div>
 							</div>
 
