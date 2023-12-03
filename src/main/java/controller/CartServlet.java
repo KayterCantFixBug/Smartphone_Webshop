@@ -191,10 +191,12 @@ public class CartServlet extends HttpServlet {
 			}
 			// User logged in
 			else{
+				LineItem lineItem_temp = lineItemService.findLineItemByProduct(product_id);
+				lineItem_temp.setQuantity(lineItem.getQuantity());
 				if (quantity > 0) {
-					lineItemService.update(lineItem);
+					lineItemService.update(lineItem_temp);
 				} else if (quantity == 0) {
-					lineItemService.delete(LineItem.class, lineItem.getId());
+					lineItemService.delete(LineItem.class, lineItem_temp.getId());
 				}
 			}
 			response.sendRedirect("viewCart");
@@ -209,6 +211,7 @@ public class CartServlet extends HttpServlet {
 		try {
 			// Get product by Id
 			int product_id = Integer.parseInt(request.getParameter("product_id"));
+			System.out.println("Product Id=" + product_id);
 			Product product = (Product) productService.findById(Product.class, product_id);
 			LineItem lineItem = new LineItem();
 			lineItem.setProduct(product);
@@ -227,7 +230,9 @@ public class CartServlet extends HttpServlet {
 			}
 			// User logged in
 			else {
-				lineItemService.delete(LineItem.class, lineItem.getId());
+				System.out.println("LineItemIDTest="+lineItem.getId());
+				lineItemService.delete(LineItem.class, lineItem.getId()+1);
+
 			}
 			response.sendRedirect("viewCart");
 		} catch (Exception e) {
