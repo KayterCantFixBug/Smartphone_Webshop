@@ -43,6 +43,7 @@ public class CartDAOImpl extends BaseDAOImpl<Cart> implements ICartDAO {
             transaction = session.beginTransaction();
             String hql = "FROM LineItem Where cart.id =: cart_id";
             listOfLineItem = session.createQuery(hql).setParameter("cart_id", cart_id).getResultList();
+            //System.out.println("List line item DAO =" + listOfLineItem.get(0).getProduct().getName());
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

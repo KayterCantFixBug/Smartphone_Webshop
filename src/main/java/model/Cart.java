@@ -17,7 +17,7 @@ public class Cart {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "line_item_id")
-    private List<LineItem> lineItems = new ArrayList<>();
+    private List<LineItem> lineItems = new ArrayList<LineItem>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

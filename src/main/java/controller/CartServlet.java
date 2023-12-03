@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import model.*;
+import org.hibernate.Hibernate;
 import service.impl.*;
 
 @SuppressWarnings("serial")
@@ -255,6 +256,10 @@ public class CartServlet extends HttpServlet {
 //				for (int i = 0;  i < lineItems.size(); i++)
 //					System.out.println("LineitemID=" + lineItems.get(i).getId());
 				cart_database.setLineItems(lineItems);
+				System.out.println("id LineItem Fisrt =" + lineItems.get(0).getId());
+				System.out.println("quantity LineItem Fisrt =" + lineItems.get(0).getQuantity());
+				System.out.println("product first =" + lineItems.get(0).getProduct().getName());
+//				System.out.println("Name product =" + cart_database.getLineItems().get(0).getProduct().getId());
 				request.setAttribute("cart_database", cart_database);
 				String url= "/views/cart.jsp";
 				request.getRequestDispatcher(url).forward(request, response);

@@ -66,7 +66,8 @@
 										<c:if test="${not empty item.product.image}">
 										<img src="${item.product.image}" style="border-radius: 50%;"
 											 width="100" height="100">
-									</c:if></td>
+									</c:if>
+									</td>
 									<td><c:out value="${item.product.name}" /></td>
 									<td><c:out value="${item.product.os}" /></td>
 									<td><c:out value="${item.product.quantity}" /></td>
@@ -118,7 +119,7 @@
 										</c:otherwise>
 									</c:choose>
 
-									<strong class="text-black">${cart.totalCurrencyFormat }</strong>
+<%--									<strong class="text-black">${cart.totalCurrencyFormat }</strong>--%>
 								</div>
 							</div>
 

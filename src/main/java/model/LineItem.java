@@ -17,7 +17,7 @@ public class LineItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
 
