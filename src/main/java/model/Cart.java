@@ -15,8 +15,7 @@ public class Cart {
     @Column(name="cart_id")
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "line_item_id")
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LineItem> lineItems = new ArrayList<LineItem>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

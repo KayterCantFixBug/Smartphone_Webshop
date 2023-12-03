@@ -133,6 +133,7 @@ public class CartServlet extends HttpServlet {
 				int quantity = 1;
 				LineItem lineItem_temp = lineItemService.findLineItemByProduct(product_id);
 				//System.out.println("Line item temp" + lineItem_temp.getQuantity());
+				System.out.println("LineItem"+lineItem_temp);
 				if (lineItem_temp == null){
 					quantity = 1;
 					lineItem.setQuantity(quantity);
@@ -230,8 +231,8 @@ public class CartServlet extends HttpServlet {
 			}
 			// User logged in
 			else {
-				System.out.println("LineItemIDTest="+lineItem.getId());
-				lineItemService.delete(LineItem.class, lineItem.getId()+1);
+				LineItem lineItem_temp = lineItemService.findLineItemByProduct(product_id);
+				lineItemService.delete(LineItem.class, lineItem_temp.getId());
 
 			}
 			response.sendRedirect("viewCart");
@@ -247,6 +248,7 @@ public class CartServlet extends HttpServlet {
 			// Check if user login or not
 			HttpSession session = request.getSession();
 			User user_login = (User) session.getAttribute("account");
+
 			// User do not login
 			if (user_login == null) {
 				String url= "/views/cart.jsp";
@@ -256,14 +258,15 @@ public class CartServlet extends HttpServlet {
 			else{
 				// find cart of user
 				User user = userService.findByEmail(user_login.getEmail());
+				System.out.println("UserLogin"+user_login.getEmail());
 				Cart cart_database = cartService.findByUser(user);
 				List<LineItem> lineItems = cartService.getAllLineItem(cart_database.getId());
 //				for (int i = 0;  i < lineItems.size(); i++)
 //					System.out.println("LineitemID=" + lineItems.get(i).getId());
 				cart_database.setLineItems(lineItems);
-				System.out.println("id LineItem Fisrt =" + lineItems.get(0).getId());
-				System.out.println("quantity LineItem Fisrt =" + lineItems.get(0).getQuantity());
-				System.out.println("product first =" + lineItems.get(0).getProduct().getName());
+//				System.out.println("id LineItem Fisrt =" + lineItems.get(0).getId());
+//				System.out.println("quantity LineItem Fisrt =" + lineItems.get(0).getQuantity());
+//				System.out.println("product first =" + lineItems.get(0).getProduct().getName());
 //				System.out.println("Name product =" + cart_database.getLineItems().get(0).getProduct().getId());
 				request.setAttribute("cart_database", cart_database);
 				String url= "/views/cart.jsp";
