@@ -18,12 +18,15 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:if test="">
+
+					</c:if>
 						<c:forEach var="item" items="${cart.lineItems}">
 							<tr>
 								<td>
 									<form action="updateCart" method="post">
 										<input type=text name="quantity" value='${item.quantity}'
-											pattern="[1-9]+" title="Enter a valid number!" required>
+											pattern="^[1-9]\d*$" title="Enter a valid number!" required>
 										<input type="hidden" name="product_id"
 											value="${item.product.id}"> <input type="submit"
 											value="Update">
