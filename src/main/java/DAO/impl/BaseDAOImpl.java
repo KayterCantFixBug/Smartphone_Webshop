@@ -15,7 +15,7 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		try {
 			transaction = session.beginTransaction();
-			session.save(e);
+			session.saveOrUpdate(e);
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {

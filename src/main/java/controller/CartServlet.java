@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,6 +16,7 @@ import service.impl.OrderDetailServiceImpl;
 import service.impl.OrderServiceImpl;
 import service.impl.ProductServiceImpl;
 import service.impl.UserServiceImpl;
+import utility.Email;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/addToCart", "/removeCart", "/updateCart", "/viewCart", "/checkout" })
@@ -35,6 +38,8 @@ public class CartServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
 		} else if (url.contains("addToCart")) {
 			addToCart(request, response);
+		} else if (url.contains("checkout")) {
+			request.getRequestDispatcher("/views/add-order.jsp").forward(request, response);
 		}
 	}
 
@@ -55,27 +60,25 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void checkout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Email sm = new Email();
 		HttpSession session = request.getSession();
 		Order order = (Order) session.getAttribute("order");
 		if (order == null) {
 			order = new Order();
 		}
+		String toEmail = request.getParameter("email");
+		order.setUser(userService.findByEmail(toEmail));
+		order.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		order.setAddress(request.getParameter("address"));
+		order.setPhone(request.getParameter("phone"));
+		for (OrderDetail orderDetail : order.getOrderDetails()) {
+			orderDetail.setOrder(order);
+		}
 		orderService.insert(order);
+//		sm.sendEmail(toEmail, order);
 		request.getRequestDispatcher("/views/thankyou.jsp").forward(request, response);
-//		HttpSession session = request.getSession();
-//		Order order = (Order) session.getAttribute("order");
-//		if (order == null) {
-//			order = new Order();
-//		}
-//		int product_id = Integer.parseInt(request.getParameter("product_id"));
-//		OrderDetail orderDetail = new OrderDetail();
-//		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
-//		order.addOrderDetail(orderDetail);
-//		session.setAttribute("order", order);
-//		response.sendRedirect("viewCart");
 	}
 
 	@SuppressWarnings("unchecked")
