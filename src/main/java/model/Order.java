@@ -14,6 +14,18 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
 	private int id;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_detail_id")
+	private List<OrderDetail> orderDetails;
+	@Column(name = "date")
+	private String Date;
+	@Column(name = "address")
+	private String address;
+	@Column(name = "phone")
+	private String phone;
 
 	public String getDate() {
 		return Date;
@@ -30,21 +42,6 @@ public class Order {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_detail_id")
-	private List<OrderDetail> orderDetails = new ArrayList<>();
-	@Column(name = "date")
-	private String Date;
-	@Column(name = "address")
-	private String address;
-	@Column(name = "phone")
-	private String phone;
-	@Column(name = "note")
-	private String note;
 
 	public Order() {
 		orderDetails = new ArrayList<OrderDetail>();
@@ -82,23 +79,14 @@ public class Order {
 		this.address = address;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
 	public Order(String date) {
 		Date = date;
 	}
 
-	public Order(int id, String address, String phone, String note) {
+	public Order(int id, String address, String phone) {
 		this.id = id;
 		this.address = address;
 		this.phone = phone;
-		this.note = note;
 	}
 
 	public double getTotal() {
