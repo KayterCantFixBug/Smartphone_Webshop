@@ -30,9 +30,21 @@
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.servletContext.contextPath}/shop">Shop</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.servletContext.contextPath}/viewCart">Cart <span
-							class="badge text-bg-danger">${fn:length(sessionScope.cart.lineItems)}</span><span
-							class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">${sessionScope.cart.totalCurrencyFormat}</span></a></li>
+											href="${pageContext.servletContext.contextPath}/viewCart">Cart
+						<c:choose>
+							<c:when test="${sessionScope.account.email == null}">
+
+							<span class="badge text-bg-danger">${fn:length(sessionScope.cart.lineItems)}</span>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+									${sessionScope.cart.totalCurrencyFormat}</span></a>
+							</c:when>
+							<c:otherwise>
+								 <span
+									class="badge text-bg-danger">${fn:length(cart_database.lineItems)}</span><span
+									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">${cart_database.totalCurrencyFormat}</span></a></li>
+							</c:otherwise>
+						</c:choose>
+					</li>
 					<c:if test="${sessionScope.account.role eq 'ADMIN'}">
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.servletContext.contextPath}/listUser">User</a></li>
