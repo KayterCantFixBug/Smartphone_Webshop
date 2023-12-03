@@ -33,7 +33,7 @@
 								<img src="${product.image}" style="border-radius: 50%;"
 									width="50" height="50">
 							</c:if></td>
-						<td><c:out value="${product.price}" /></td>
+						<td><c:out value="${product.priceCurrencyFormat}" /></td>
 						<td><c:out value="${product.storage}" /></td>
 						<td><c:out value="${product.ram}" /></td>
 						<td><c:out value="${product.os}" /></td>

@@ -20,19 +20,23 @@
 		<div class="row">
 			<c:forEach var="product" items="${listProduct}">
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<a class="product-item" href="#"> <img
-						src="${pageContext.servletContext.contextPath}/images/product.png"
-						class="img-fluid product-thumbnail" width="100" height="100">
-						<h3 class="product-title">${product.name }</h3> <strong
-						class="product-price">$${product.price}</strong> <span
-						class="icon-cross"> <img
-							src="${pageContext.servletContext.contextPath}/images/cross.svg"
-							class="img-fluid">
-					</span>
-					</a>
+					<form action="addToCart" method="post">
+						<a class="product-item" href="addToCart?product_id=${product.id}">
+							<img
+							src="${pageContext.servletContext.contextPath}/images/product.png"
+							class="img-fluid product-thumbnail" width="100" height="100">
+							<h3 class="product-title">${product.name }</h3> <strong
+							class="product-price">${product.priceCurrencyFormat}</strong> <span
+							class="icon-cross"> <img
+								src="${pageContext.servletContext.contextPath}/images/cross.svg"
+								class="img-fluid">
+						</span>
+						</a>
+					</form>
 					<div class="text-center pt-4">
 						<form action="viewProduct" method="post">
-							<button name="id" class="btn btn-sm btn-outline-black"
+							<button name="id"
+								class="btn btn-sm btn-outline-black<c:if test="${product.quantity eq 0 }"> bg-danger</c:if>"
 								type="submit" value="${product.id}">Details</button>
 						</form>
 					</div>

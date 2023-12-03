@@ -1,5 +1,8 @@
 package model;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -132,5 +135,10 @@ public class Product {
 		this.ram = ram;
 		this.os = os;
 		this.description = description;
+	}
+
+	public String getPriceCurrencyFormat() {
+		NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+		return currency.format(price);
 	}
 }

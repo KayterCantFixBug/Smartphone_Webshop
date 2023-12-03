@@ -14,7 +14,7 @@
 								<li class="list-group-item"><h5>
 										<b>${requestScope.product.name}</b>
 									</h5></li>
-								<li class="list-group-item"><b>Price: </b>$${requestScope.product.price}
+								<li class="list-group-item"><b>Price: </b>${requestScope.product.priceCurrencyFormat}
 								</li>
 							</ul>
 						</div>

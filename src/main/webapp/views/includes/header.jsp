@@ -29,6 +29,10 @@
 						href="${pageContext.servletContext.contextPath}/views/home.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.servletContext.contextPath}/shop">Shop</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.servletContext.contextPath}/viewCart">Cart <span
+							class="badge text-bg-danger">${fn:length(sessionScope.order.orderDetails)}</span><span
+							class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">${sessionScope.order.totalCurrencyFormat}</span></a></li>
 					<c:if test="${sessionScope.account.role eq 'ADMIN'}">
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.servletContext.contextPath}/listUser">User</a></li>
@@ -41,11 +45,6 @@
 					</c:if>
 				</ul>
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li><a class="nav-link"
-						href="${pageContext.servletContext.contextPath}/views/cart.jsp"><img
-							src="${pageContext.servletContext.contextPath}/images/cart.svg"
-							style="padding-right: 10px;"><span
-							class="badge text-bg-secondary">0</span></a></li>
 					<c:choose>
 						<c:when test="${sessionScope.account != null}">
 							<div style="padding-right: 5px;">
