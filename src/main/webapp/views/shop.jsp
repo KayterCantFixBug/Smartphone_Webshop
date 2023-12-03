@@ -31,7 +31,10 @@
 					</span>
 					</a>
 					<div class="text-center pt-4">
-						<a href="#" class="btn btn-sm btn-outline-black">Details</a>
+						<form action="viewProduct" method="post">
+							<button name="id" class="btn btn-sm btn-outline-black"
+								type="submit" value="${product.id}">Details</button>
+						</form>
 					</div>
 				</div>
 			</c:forEach>
@@ -41,12 +44,19 @@
 		<input type="hidden" name="search" value="${search }">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				<li
+					class="page-item <c:if test="${currentPage eq 1}">disabled</c:if>"><button
+						name="page" class="page-link" type="submit"
+						value="${currentPage - 1}">Previous</button></li>
 				<c:forEach var="pageNumber" begin="1" end="${numberOfPages}">
-					<li class="page-item"><input name="page" class="page-link"
-						type="submit" value="${pageNumber}" /></li>
+					<li
+						class="page-item <c:if test="${currentPage eq pageNumber}">active</c:if>"><input
+						name="page" class="page-link" type="submit" value="${pageNumber}" /></li>
 				</c:forEach>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<li
+					class="page-item <c:if test="${currentPage eq numberOfPages}">disabled</c:if>"><button
+						name="page" class="page-link" type="submit"
+						value="${currentPage + 1}">Next</button></li>
 			</ul>
 		</nav>
 	</form>
