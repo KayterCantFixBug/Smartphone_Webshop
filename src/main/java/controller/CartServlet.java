@@ -28,11 +28,6 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		Order order = (Order) session.getAttribute("order");
-		if (order == null) {
-			order = new Order();
-		}
 		String url = request.getRequestURL().toString();
 		if (url.contains("viewCart")) {
 			request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
@@ -47,11 +42,6 @@ public class CartServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String url = request.getRequestURL().toString();
-		HttpSession session = request.getSession();
-		Order order = (Order) session.getAttribute("order");
-		if (order == null) {
-			order = new Order();
-		}
 		if (url.contains("addToCart")) {
 			addToCart(request, response);
 		} else if (url.contains("updateCart")) {
@@ -66,6 +56,9 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Order order = (Order) session.getAttribute("order");
+		if (order == null) {
+			order = new Order();
+		}
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
@@ -79,6 +72,9 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Order order = (Order) session.getAttribute("order");
+		if (order == null) {
+			order = new Order();
+		}
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
@@ -93,6 +89,9 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Order order = (Order) session.getAttribute("order");
+		if (order == null) {
+			order = new Order();
+		}
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		OrderDetail orderDetail = new OrderDetail();
 		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
