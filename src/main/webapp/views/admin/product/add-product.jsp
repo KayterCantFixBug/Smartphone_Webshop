@@ -5,7 +5,7 @@
 			<img src="${requestScope.product.image}"
 				class="card-img-top mx-auto w-25" style="border-radius: 50%;">
 		</c:if>
-		<div class="card-header text-center text-bg-success mb-5">Edit
+		<div class="card-header text-center text-bg-success mb-5">Add
 			Product</div>
 		<div class="card-body">
 			<form action="addProduct" method="post" enctype="multipart/form-data">

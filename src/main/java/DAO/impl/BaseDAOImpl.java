@@ -1,6 +1,8 @@
 package DAO.impl;
 
 import DAO.IBaseDAO;
+import model.OrderDetail;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utility.HibernateUtility;
@@ -15,7 +17,7 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		try {
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(e);
+			session.save(e);
 			transaction.commit();
 		} catch (Exception ex) {
 			if (transaction != null) {
@@ -94,5 +96,4 @@ public class BaseDAOImpl<E> implements IBaseDAO<E> {
 		}
 		return listOfe;
 	}
-
 }

@@ -22,9 +22,8 @@
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
 					<form action="addToCart" method="post">
 						<a class="product-item" href="addToCart?product_id=${product.id}">
-							<img
-							src="${pageContext.servletContext.contextPath}/images/product.png"
-							class="img-fluid product-thumbnail" width="100" height="100">
+							<img src="${product.image}" class="img-fluid product-thumbnail"
+							width="100" height="100">
 							<h3 class="product-title">${product.name }</h3> <strong
 							class="product-price">${product.priceCurrencyFormat}</strong> <span
 							class="icon-cross"> <img

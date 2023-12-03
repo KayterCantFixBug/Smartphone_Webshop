@@ -13,6 +13,7 @@ import model.User;
 import model.User.Gender;
 import model.User.Role;
 import model.User.Status;
+import service.impl.OrderServiceImpl;
 import service.impl.UserServiceImpl;
 import utility.Upload;
 
@@ -22,6 +23,7 @@ import utility.Upload;
 public class UserServlet extends HttpServlet {
 
 	UserServiceImpl userService = new UserServiceImpl();
+	OrderServiceImpl orderService = new OrderServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,6 +38,7 @@ public class UserServlet extends HttpServlet {
 		} else if (url.contains("viewUser")) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			request.setAttribute("user", userService.findById(User.class, id));
+			request.setAttribute("listOrder", orderService.getOrderListByUserId(id));
 			request.getRequestDispatcher("/views/admin/user/view-user.jsp").forward(request, response);
 		} else if (url.contains("updateUser")) {
 			int id = Integer.parseInt(request.getParameter("id"));

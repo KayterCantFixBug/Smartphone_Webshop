@@ -73,11 +73,13 @@ public class CartServlet extends HttpServlet {
 		order.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		order.setAddress(request.getParameter("address"));
 		order.setPhone(request.getParameter("phone"));
+		orderService.insert(order);
 		for (OrderDetail orderDetail : order.getOrderDetails()) {
 			orderDetail.setOrder(order);
+			orderDetailService.insert(orderDetail);
 		}
-		orderService.insert(order);
-//		sm.sendEmail(toEmail, order);
+		sm.sendEmail(toEmail, order);
+		session.removeAttribute("order");
 		request.getRequestDispatcher("/views/thankyou.jsp").forward(request, response);
 	}
 
@@ -90,8 +92,9 @@ public class CartServlet extends HttpServlet {
 			order = new Order();
 		}
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
+		Product product = (Product) productService.findById(Product.class, product_id);
 		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
+		orderDetail.setProduct(product);
 		order.addOrderDetail(orderDetail);
 		session.setAttribute("order", order);
 		response.sendRedirect("viewCart");

@@ -17,7 +17,7 @@ public class OrderDetail {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
 

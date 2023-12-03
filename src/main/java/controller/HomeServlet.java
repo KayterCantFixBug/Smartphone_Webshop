@@ -15,7 +15,7 @@ import utility.Upload;
 import model.User;
 import model.User.Gender;
 import model.User.Status;
-
+import service.impl.OrderServiceImpl;
 import service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
@@ -25,6 +25,7 @@ import service.impl.UserServiceImpl;
 public class HomeServlet extends HttpServlet {
 
 	UserServiceImpl userService = new UserServiceImpl();
+	OrderServiceImpl orderService = new OrderServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -79,6 +80,7 @@ public class HomeServlet extends HttpServlet {
 		User user = (User) session.getAttribute("account");
 		User retrievedUser = userService.findByEmail(user.getEmail());
 		request.setAttribute("user", retrievedUser);
+		request.setAttribute("listOrder", orderService.getOrderListByUserId(retrievedUser.getId()));
 	}
 
 	private void editprofile(HttpServletRequest request, HttpServletResponse response)

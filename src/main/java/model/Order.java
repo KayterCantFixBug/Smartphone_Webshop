@@ -17,8 +17,7 @@ public class Order {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_detail_id")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<OrderDetail> orderDetails;
 	@Column(name = "date")
 	private String Date;
@@ -44,7 +43,7 @@ public class Order {
 	}
 
 	public Order() {
-		orderDetails = new ArrayList<OrderDetail>();
+		orderDetails = new ArrayList<>();
 	}
 
 	public List<OrderDetail> getOrderDetails() {
