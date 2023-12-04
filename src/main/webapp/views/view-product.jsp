@@ -45,7 +45,15 @@
 					</div>
 					<div class="card-footer">
 						<div class="row align-items-center mb-3">
-							<input type="submit" class="btn btn-primary" value="Add to cart">
+							<c:choose>
+								<c:when test="${requestScope.product.quantity eq 0 }">
+									<input class="btn btn-danger" value="Out of Stock!">
+								</c:when>
+								<c:otherwise>
+									<input type="submit" class="btn btn-primary"
+										value="Add to cart">
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>

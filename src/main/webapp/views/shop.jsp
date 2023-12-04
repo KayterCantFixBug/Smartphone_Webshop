@@ -21,7 +21,15 @@
 			<c:forEach var="product" items="${listProduct}">
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
 					<form action="addToCart" method="post">
-						<a class="product-item" href="addToCart?product_id=${product.id}">
+						<a class="product-item"
+							<c:choose>
+							    <c:when test="${product.quantity eq 0 }">
+									href="#out-of-stock"
+							    </c:when>
+							    <c:otherwise>
+									href="addToCart?product_id=${product.id}"
+							    </c:otherwise>
+							</c:choose>>
 							<img src="${product.image}" class="img-fluid product-thumbnail"
 							width="100" height="100">
 							<h3 class="product-title">${product.name }</h3> <strong
@@ -36,7 +44,16 @@
 						<form action="viewProduct" method="post">
 							<button name="id"
 								class="btn btn-sm btn-outline-black<c:if test="${product.quantity eq 0 }"> bg-danger</c:if>"
-								type="submit" value="${product.id}">Details</button>
+								type="submit" value="${product.id}">
+								<c:choose>
+									<c:when test="${product.quantity eq 0 }">
+											Out of Stock!
+								    </c:when>
+									<c:otherwise>
+											Details
+								    </c:otherwise>
+								</c:choose>
+							</button>
 						</form>
 					</div>
 				</div>

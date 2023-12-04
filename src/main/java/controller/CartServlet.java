@@ -60,6 +60,7 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void checkout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Email sm = new Email();
@@ -76,6 +77,9 @@ public class CartServlet extends HttpServlet {
 		orderService.insert(order);
 		for (OrderDetail orderDetail : order.getOrderDetails()) {
 			orderDetail.setOrder(order);
+			Product product = orderDetail.getProduct();
+			product.setQuantity(product.getQuantity() - orderDetail.getQuantity());
+			productService.update(product);
 			orderDetailService.insert(orderDetail);
 		}
 		sm.sendEmail(toEmail, order);
@@ -109,12 +113,19 @@ public class CartServlet extends HttpServlet {
 			order = new Order();
 		}
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
-		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
-		orderDetail.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-		order.updateOrderDetail(orderDetail);
-		session.setAttribute("order", order);
-		response.sendRedirect("viewCart");
+		Product product = (Product) productService.findById(Product.class, product_id);
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		if (quantity > product.getQuantity()) {
+			request.setAttribute("error", "Quantity cannot exceed stock!");
+			request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
+		} else {
+			OrderDetail orderDetail = new OrderDetail();
+			orderDetail.setProduct(product);
+			orderDetail.setQuantity(quantity);
+			order.updateOrderDetail(orderDetail);
+			session.setAttribute("order", order);
+			response.sendRedirect("viewCart");
+		}
 	}
 
 	@SuppressWarnings("unchecked")
