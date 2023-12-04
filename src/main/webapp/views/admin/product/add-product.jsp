@@ -16,7 +16,7 @@
 					<div class="col">
 						<select class="form-select" name="brand" required>
 							<c:forEach var="brand" items="${listBrand}">
-								<option selected value="${brand.id }">${brand.name }</option>
+								<option value="${brand.id }">${brand.name }</option>
 							</c:forEach>
 						</select>
 					</div>

@@ -14,8 +14,8 @@ public class Product {
 	private int id;
 	@Column(name = "name")
 	private String name;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "brand_id")
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
 	private Brand brand;
 	@Column(name = "price")
 	private double price;

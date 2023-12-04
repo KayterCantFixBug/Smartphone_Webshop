@@ -2,6 +2,9 @@
 <div class="untree_co-section before-footer-section">
 	<div class="container">
 		<div class="row mb-5">
+			<c:if test="${error != null}">
+				<div class="alert alert-danger mb-3" role="alert">${error}</div>
+			</c:if>
 			<h5>Cart</h5>
 			<div class="site-blocks-table">
 				<table>
