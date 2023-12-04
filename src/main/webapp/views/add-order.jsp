@@ -12,7 +12,7 @@
 						</div>
 						<div class="col">
 							<input readonly type="email" name="email" class="form-control"
-								value="${sessionScope.account.email }">
+								   value="${sessionScope.account.email }">
 						</div>
 					</div>
 					<div class="row align-items-center mb-3">
@@ -29,8 +29,8 @@
 						</div>
 						<div class="col">
 							<input type="text" name="phone" class="form-control"
-								pattern="0[0-9]{9}" title="The phone number is invalid."
-								required>
+								   pattern="0[0-9]{9}" title="The phone number is invalid."
+								   required>
 						</div>
 					</div>
 					<div class="text-center mb-3">

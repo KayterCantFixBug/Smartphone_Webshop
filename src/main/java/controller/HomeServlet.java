@@ -9,6 +9,9 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import model.Cart;
+import service.impl.CartServiceImpl;
+import service.impl.OrderServiceImpl;
 import utility.Constant;
 import utility.Email;
 import utility.Upload;
@@ -25,7 +28,8 @@ import service.impl.UserServiceImpl;
 public class HomeServlet extends HttpServlet {
 
 	UserServiceImpl userService = new UserServiceImpl();
-
+	CartServiceImpl cartService = new CartServiceImpl();
+	OrderServiceImpl orderService = new OrderServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,6 +51,7 @@ public class HomeServlet extends HttpServlet {
 			profileUser(request, response);
 			request.getRequestDispatcher("/views/home/profile.jsp").forward(request, response);
 		} else {
+			request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
 			request.getRequestDispatcher("/views/home.jsp").forward(request, response);
 		}
 	}
@@ -79,6 +84,7 @@ public class HomeServlet extends HttpServlet {
 		User user = (User) session.getAttribute("account");
 		User retrievedUser = userService.findByEmail(user.getEmail());
 		request.setAttribute("user", retrievedUser);
+		request.setAttribute("listOrder", orderService.getOrderListByUserId(retrievedUser.getId()));
 	}
 
 	private void editprofile(HttpServletRequest request, HttpServletResponse response)
@@ -168,6 +174,7 @@ public class HomeServlet extends HttpServlet {
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("account");
+		session.removeAttribute("cart");
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
@@ -245,6 +252,20 @@ public class HomeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if (session != null && session.getAttribute("account") != null) {
+			Cart cart = (Cart) session.getAttribute("cart");
+			if (cart == null)
+				cart = new Cart();
+			User user_login = (User) session.getAttribute("account");
+			User user = userService.findByEmail(user_login.getEmail());
+			System.out.println(cart);
+			Cart cart_database = cartService.findByUser(user);
+			if (cart_database == null)
+				cart_database = cart;
+			cart.setLineItems(cart_database.getLineItems());
+			cart.setUser(cart_database.getUser());
+			session.setAttribute("cart", cart);
+
+
 			request.getRequestDispatcher("/views/home.jsp").forward(request, response);
 		} else {
 			getLogin(request, response);

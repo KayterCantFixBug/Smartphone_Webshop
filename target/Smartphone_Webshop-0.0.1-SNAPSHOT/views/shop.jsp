@@ -7,8 +7,8 @@
 					<div class="row justify-content-center pt-2">
 						<div class="col-6">
 							<input class="form-control me-2" type="search"
-								placeholder="Search" name="search" aria-label="Search"
-								value="${search }">
+								   placeholder="Search" name="search" aria-label="Search"
+								   value="${search }">
 						</div>
 						<div class="col-auto">
 							<button class="btn btn-outline-success" type="submit">Search</button>
@@ -21,13 +21,19 @@
 			<c:forEach var="product" items="${listProduct}">
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
 					<form action="addToCart" method="post">
-						<a class="product-item" href="addToCart?product_id=${product.id}">
-							<img
-							src="${pageContext.servletContext.contextPath}/images/product.png"
-							class="img-fluid product-thumbnail" width="100" height="100">
+						<a class="product-item"
+								<c:choose>
+									<c:when test="${product.quantity eq 0 }">
+										href="#out-of-stock"
+									</c:when>
+									<c:otherwise>
+										href="addToCart?product_id=${product.id}"
+									</c:otherwise>
+								</c:choose>>
+							<img src="${product.image}" class="img-fluid product-thumbnail">
 							<h3 class="product-title">${product.name }</h3> <strong
-							class="product-price">${product.priceCurrencyFormat}</strong> <span
-							class="icon-cross"> <img
+								class="product-price">${product.priceCurrencyFormat}</strong> <span
+								class="icon-cross"> <img
 								src="${pageContext.servletContext.contextPath}/images/cross.svg"
 								class="img-fluid">
 						</span>
@@ -36,8 +42,17 @@
 					<div class="text-center pt-4">
 						<form action="viewProduct" method="post">
 							<button name="id"
-								class="btn btn-sm btn-outline-black<c:if test="${product.quantity eq 0 }"> bg-danger</c:if>"
-								type="submit" value="${product.id}">Details</button>
+									class="btn btn-sm btn-outline-black<c:if test="${product.quantity eq 0 }"> bg-danger</c:if>"
+									type="submit" value="${product.id}">
+								<c:choose>
+									<c:when test="${product.quantity eq 0 }">
+										Out of Stock!
+									</c:when>
+									<c:otherwise>
+										Details
+									</c:otherwise>
+								</c:choose>
+							</button>
 						</form>
 					</div>
 				</div>
@@ -49,16 +64,16 @@
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li
-					class="page-item <c:if test="${currentPage eq 1}">disabled</c:if>"><button
+						class="page-item <c:if test="${currentPage eq 1}">disabled</c:if>"><button
 						name="page" class="page-link" type="submit"
 						value="${currentPage - 1}">Previous</button></li>
 				<c:forEach var="pageNumber" begin="1" end="${numberOfPages}">
 					<li
-						class="page-item <c:if test="${currentPage eq pageNumber}">active</c:if>"><input
-						name="page" class="page-link" type="submit" value="${pageNumber}" /></li>
+							class="page-item <c:if test="${currentPage eq pageNumber}">active</c:if>"><input
+							name="page" class="page-link" type="submit" value="${pageNumber}" /></li>
 				</c:forEach>
 				<li
-					class="page-item <c:if test="${currentPage eq numberOfPages}">disabled</c:if>"><button
+						class="page-item <c:if test="${currentPage eq numberOfPages}">disabled</c:if>"><button
 						name="page" class="page-link" type="submit"
 						value="${currentPage + 1}">Next</button></li>
 			</ul>

@@ -2,9 +2,7 @@ package utility;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 import model.Order;
 import model.OrderDetail;
@@ -63,27 +61,16 @@ public class Email {
 			mess.setFrom(new InternetAddress(fromEmail));
 			mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			mess.setSubject("TechGadget - Thanks for your order!");
-			StringBuilder htmlContent = new StringBuilder("<h2>Order Details</h2>");
-			htmlContent.append("<table border=\"1\">");
-			htmlContent.append("<tr>").append("<th>Product</th>").append("<th>Price</th>").append("<th>Quantity</th>")
-					.append("<th>Storage</th>").append("<th>RAM</th>").append("<th>OS</th>").append("<th>Total</th>")
-					.append("</tr>");
+			String text = "Dear, " + order.getUser().getName() + "!\n\n" + "Here are your orders!\n\n"
+					+ "Product Name\t\t\tPrice\t\t\tQuantity\t\t\tTotal\n"
+					+ "---------------------------------------------------------------------------------------------------------\n";
 			for (OrderDetail orderDetail : order.getOrderDetails()) {
 				Product product = orderDetail.getProduct();
-				htmlContent.append("<tr>").append("<td>").append(product.getName()).append("</td>").append("<td>")
-						.append(product.getPriceCurrencyFormat()).append("</td>").append("<td>")
-						.append(orderDetail.getQuantity()).append("</td>").append("<td>").append(product.getStorage())
-						.append("</td>").append("<td>").append(product.getRam()).append("</td>").append("<td>")
-						.append(product.getOs()).append("</td>").append(orderDetail.getTotalCurrencyFormat())
-						.append("</td>").append("</tr>");
+				text += product.getName() + "\t\t\t" + product.getPriceCurrencyFormat() + "\t\t\t"
+						+ orderDetail.getQuantity() + "\t\t\t" + orderDetail.getTotalCurrencyFormat() + "\n\n";
 			}
-			htmlContent.append("</table>");
-			htmlContent.append("<b>Invoice TOTAL:" + order.getTotalCurrencyFormat() + "</b>");
-			MimeBodyPart mimeBodyPart = new MimeBodyPart();
-			mimeBodyPart.setContent(htmlContent, "text/html");
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(mimeBodyPart);
-			mess.setContent(multipart);
+			text += "Invoice TOTAL: " + order.getTotalCurrencyFormat();
+			mess.setText(text);
 			Transport.send(mess);
 			test = true;
 		} catch (Exception e) {

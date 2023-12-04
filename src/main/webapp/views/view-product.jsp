@@ -7,14 +7,14 @@
 				<div class="card" style="width: 20rem;">
 					<c:if test="${not empty requestScope.product.image}">
 						<img src="${requestScope.product.image}"
-							class="card-img-top mx-auto w-75 m-5">
+							 class="card-img-top mx-auto w-75 m-5">
 					</c:if>
 					<div class="card-body">
 						<div class="row align-items-center mb-3">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><h5>
-										<b>${requestScope.product.name}</b>
-									</h5></li>
+									<b>${requestScope.product.name}</b>
+								</h5></li>
 								<li class="list-group-item"><b>Price: </b>${requestScope.product.priceCurrencyFormat}
 								</li>
 							</ul>
@@ -45,7 +45,15 @@
 					</div>
 					<div class="card-footer">
 						<div class="row align-items-center mb-3">
-							<input type="submit" class="btn btn-primary" value="Add to cart">
+							<c:choose>
+								<c:when test="${requestScope.product.quantity eq 0 }">
+									<input class="btn btn-danger" value="Out of Stock!">
+								</c:when>
+								<c:otherwise>
+									<input type="submit" class="btn btn-primary"
+										   value="Add to cart">
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>

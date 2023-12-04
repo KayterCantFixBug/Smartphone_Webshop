@@ -15,15 +15,21 @@ public class Cart {
     @Column(name="cart_id")
     private int id;
 
-    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LineItem> lineItems = new ArrayList<LineItem>();
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     public Cart() {
 
+    }
+
+    public Cart(int id, List<LineItem> lineItems, User user) {
+        this.id = id;
+        this.lineItems = lineItems;
+        this.user = user;
     }
 
     public int getId() {

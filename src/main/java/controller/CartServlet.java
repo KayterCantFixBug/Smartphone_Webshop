@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.*;
@@ -12,6 +14,7 @@ import javax.servlet.http.*;
 import model.*;
 import org.hibernate.Hibernate;
 import service.impl.*;
+import utility.Email;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/addToCart", "/removeCart", "/updateCart", "/viewCart", "/checkout" })
@@ -22,6 +25,8 @@ public class CartServlet extends HttpServlet {
 	UserServiceImpl userService = new UserServiceImpl();
 	CartServiceImpl cartService = new CartServiceImpl();
 	LineItemServiceImpl lineItemService = new LineItemServiceImpl();
+	OrderServiceImpl orderService = new OrderServiceImpl();
+	OrderDetailServiceImpl orderDetailService = new OrderDetailServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,6 +42,8 @@ public class CartServlet extends HttpServlet {
 			}
 		} else if (url.contains("addToCart")) {
 			addToCart(request, response);
+		}else if (url.contains("checkout")) {
+			request.getRequestDispatcher("/views/add-order.jsp").forward(request, response);
 		}
 	}
 
@@ -66,24 +73,41 @@ public class CartServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	private void checkout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Order order = (Order) session.getAttribute("order");
-		if (order == null) {
-			order = new Order();
+		try {
+			// Get product by Id
+			Email sm = new Email();
+			String toEmail = request.getParameter("email");
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("account");
+			Cart cart = (Cart) session.getAttribute("cart");
+			if (cart == null) {
+				cart = new Cart();
+			}
+			Order order = new Order();
+			order.setUser(userService.findByEmail(toEmail));
+			order.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+			order.setAddress(request.getParameter("address"));
+			order.setPhone(request.getParameter("phone"));
+			orderService.insert(order);
+			for (LineItem lineItem : cart.getLineItems()) {
+				OrderDetail orderDetail = new OrderDetail();
+				orderDetail.setProduct(lineItem.getProduct());
+				orderDetail.setQuantity(lineItem.getQuantity());
+				orderDetail.setOrder(order);
+				Product product = orderDetail.getProduct();
+				product.setQuantity(product.getQuantity() - orderDetail.getQuantity());
+				productService.update(product);
+				orderDetailService.insert(orderDetail);
+				lineItemService.delete(LineItem.class, lineItem.getId());
+			}
+			order.setOrderDetails(orderDetailService.getOrderDetailsByOrderId(order.getId()));;
+			sm.sendEmail(toEmail, order);
+			session.removeAttribute("order");
+			request.getRequestDispatcher("/views/thankyou.jsp").forward(request, response);
 		}
-		//orderService.insert(order);
-		request.getRequestDispatcher("/views/thankyou.jsp").forward(request, response);
-//		HttpSession session = request.getSession();
-//		Order order = (Order) session.getAttribute("order");
-//		if (order == null) {
-//			order = new Order();
-//		}
-//		int product_id = Integer.parseInt(request.getParameter("product_id"));
-//		OrderDetail orderDetail = new OrderDetail();
-//		orderDetail.setProduct((Product) productService.findById(Product.class, product_id));
-//		order.addOrderDetail(orderDetail);
-//		session.setAttribute("order", order);
-//		response.sendRedirect("viewCart");
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -134,6 +158,7 @@ public class CartServlet extends HttpServlet {
 				LineItem lineItem_temp = lineItemService.findLineItemByProduct(product_id);
 				//System.out.println("Line item temp" + lineItem_temp.getQuantity());
 				System.out.println("LineItem"+lineItem_temp);
+				System.out.println("CartID:"+cart.getId());
 				if (lineItem_temp == null){
 					quantity = 1;
 					lineItem.setQuantity(quantity);
@@ -143,6 +168,7 @@ public class CartServlet extends HttpServlet {
 				else {
 					quantity = lineItem_temp.getQuantity() + 1;
 					lineItem_temp.setQuantity(quantity);
+					lineItem_temp.setCart(cart);
 					lineItemService.update(lineItem_temp);
 				}
 			}
@@ -260,6 +286,16 @@ public class CartServlet extends HttpServlet {
 				User user = userService.findByEmail(user_login.getEmail());
 				System.out.println("UserLogin"+user_login.getEmail());
 				Cart cart_database = cartService.findByUser(user);
+
+				if (cart_database == null){
+					Cart cart = (Cart) session.getAttribute("cart");
+					if (cart == null) {
+						cart = new Cart();
+					}
+					cart_database = cart;
+					cart_database.setUser(user);
+					cartService.insert(cart_database);
+				}
 				List<LineItem> lineItems = cartService.getAllLineItem(cart_database.getId());
 //				for (int i = 0;  i < lineItems.size(); i++)
 //					System.out.println("LineitemID=" + lineItems.get(i).getId());
@@ -268,7 +304,7 @@ public class CartServlet extends HttpServlet {
 //				System.out.println("quantity LineItem Fisrt =" + lineItems.get(0).getQuantity());
 //				System.out.println("product first =" + lineItems.get(0).getProduct().getName());
 //				System.out.println("Name product =" + cart_database.getLineItems().get(0).getProduct().getId());
-				request.setAttribute("cart_database", cart_database);
+				session.setAttribute("cart", cart_database);
 				String url= "/views/cart.jsp";
 				request.getRequestDispatcher(url).forward(request, response);
 			}

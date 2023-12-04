@@ -19,8 +19,6 @@
 					</thead>
 					<tbody>
 
-					<c:choose>
-						<c:when test="${sessionScope.account.email == null}">
 							<c:forEach var="item" items="${cart.lineItems}">
 								<tr>
 									<td>
@@ -50,39 +48,7 @@
 									</td>
 								</tr>
 							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<c:forEach var="item" items="${cart_database.lineItems}">
-								<tr>
-									<td>
-										<form action="updateCart" method="post">
-											<input type=text name="quantity" value='${item.quantity}'
-												   pattern="^[1-9]\d*$" title="Enter a valid number!" required>
-											<input type="hidden" name="product_id"
-												   value="${item.product.id}"> <input type="submit" value="Update">
-										</form>
-									</td>
-									<td>
-										<c:if test="${not empty item.product.image}">
-										<img src="${item.product.image}" style="border-radius: 50%;"
-											 width="100" height="100">
-									</c:if>
-									</td>
-									<td><c:out value="${item.product.name}" /></td>
-									<td><c:out value="${item.product.os}" /></td>
-									<td><c:out value="${item.product.quantity}" /></td>
-									<td><c:out value="${item.product.priceCurrencyFormat}" /></td>
-									<td><c:out value="${item.totalCurrencyFormat}" /></td>
-									<td>
-										<form action="removeCart" method="post">
-											<input type="hidden" name="product_id"
-												   value="${item.product.id}"> <input type="submit" value="Delete">
-										</form>
-									</td>
-								</tr>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+
 					</tbody>
 				</table>
 			</div>
@@ -110,16 +76,7 @@
 									<span class="text-black">Total</span>
 								</div>
 								<div class="col-md-6 text-right">
-									<c:choose>
-										<c:when test="${sessionScope.account.email == null}">
 											<strong class="text-black">${cart.totalCurrencyFormat }</strong>
-										</c:when>
-										<c:otherwise>
-											<strong class="text-black">${cart_database.totalCurrencyFormat }</strong>
-										</c:otherwise>
-									</c:choose>
-
-<%--									<strong class="text-black">${cart.totalCurrencyFormat }</strong>--%>
 								</div>
 							</div>
 
