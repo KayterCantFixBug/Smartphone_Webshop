@@ -1,7 +1,6 @@
 package DAO.impl;
 
 import DAO.IBaseDAO;
-import model.OrderDetail;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
