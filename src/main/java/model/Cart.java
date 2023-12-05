@@ -72,7 +72,17 @@ public class Cart {
                 return;
             }
         }
+    }
 
+    public void updateChooseLineItem(LineItem lineItem, boolean choose){
+        int code = lineItem.getProduct().getId();
+        for (int i = 0; i < this.lineItems.size(); i++) {
+            if (lineItems.get(i).getProduct().getId() == code) {
+                lineItems.get(i).setChoose(choose);
+                System.out.println(lineItems.get(i).isChoose());
+                return;
+            }
+        }
     }
 
     public int getQuantityItem (LineItem lineItem){
@@ -99,6 +109,7 @@ public class Cart {
     public double getTotal() {
         double total = 0;
         for (int i = 0; i < lineItems.size(); i++) {
+//            if (lineItems.get(i).isChoose())
             total += lineItems.get(i).getTotal();
         }
         return total;

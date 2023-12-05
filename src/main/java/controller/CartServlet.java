@@ -17,7 +17,7 @@ import service.impl.*;
 import utility.Email;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/addToCart", "/removeCart", "/updateCart", "/viewCart", "/checkout" })
+@WebServlet(urlPatterns = { "/addToCart", "/removeCart", "/updateCart", "/viewCart", "/checkout", "/updateChooseCart"})
 @MultipartConfig
 public class CartServlet extends HttpServlet {
 
@@ -57,6 +57,8 @@ public class CartServlet extends HttpServlet {
 			addToCart(request, response);
 		} else if (url.contains("updateCart")) {
 			updateCart(request, response);
+		}else if (url.contains("updateChooseCart")) {
+			updateChooseCart(request, response);
 		} else if (url.contains("removeCart")) {
 			removeCart(request, response);
 		} else if (url.contains("viewCart")) {
@@ -74,6 +76,7 @@ public class CartServlet extends HttpServlet {
 	private void checkout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+
 			// Get product by Id
 			Email sm = new Email();
 			String toEmail = request.getParameter("email");
@@ -109,6 +112,41 @@ public class CartServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
+	private void updateChooseCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			// Get product by Id
+			int product_id = Integer.parseInt(request.getParameter("product_id"));
+			Product product = (Product) productService.findById(Product.class, product_id);
+			Boolean choose = Boolean.parseBoolean(request.getParameter("choose"));
+			System.out.println("choose_string="+choose);
+
+			LineItem lineItem = new LineItem();
+			lineItem.setProduct(product);
+			lineItem.setChoose(choose);
+			// Check if user login or not
+			HttpSession session = request.getSession();
+			User user_login = (User) session.getAttribute("account");
+			// User do not login
+			if (user_login == null) {
+				Cart cart = (Cart) session.getAttribute("cart");
+				cart.updateChooseLineItem(lineItem, choose);
+
+				session.setAttribute("cart", cart);
+			}
+			// User logged in
+			else{
+				LineItem lineItem_temp = lineItemService.findLineItemByProduct(product_id);
+				lineItem_temp.setChoose(choose);
+				lineItemService.update(lineItem_temp);
+			}
+			response.sendRedirect("viewCart");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	@SuppressWarnings("unchecked")
 	private void addToCart(HttpServletRequest request, HttpServletResponse response)
@@ -197,6 +235,10 @@ public class CartServlet extends HttpServlet {
 				}
 			} catch (NumberFormatException nfe) {
 				quantity = 1;
+			}
+			if (quantity > product.getQuantity()) {
+				request.setAttribute("error", "Quantity cannot exceed stock!");
+				request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
 			}
 			// if the user enters a negative or invalid quanity,
 			// the quantity is automatically resit to 1.
@@ -313,4 +355,6 @@ public class CartServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
+
 }

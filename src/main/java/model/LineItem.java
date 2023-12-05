@@ -24,6 +24,17 @@ public class LineItem {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "choose")
+    private boolean choose;
+
+    public boolean isChoose() {
+        return choose;
+    }
+
+    public void setChoose(boolean choose) {
+        this.choose = choose;
+    }
+
     public double getTotal() {
         double total = product.getPrice() * quantity;
         return total;
