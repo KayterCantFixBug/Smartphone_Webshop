@@ -259,11 +259,12 @@ public class HomeServlet extends HttpServlet {
 			User user = userService.findByEmail(user_login.getEmail());
 			System.out.println(cart);
 			Cart cart_database = cartService.findByUser(user);
-			if (cart_database == null)
-				cart_database = cart;
-			cart.setLineItems(cart_database.getLineItems());
-			cart.setUser(cart_database.getUser());
-			session.setAttribute("cart", cart);
+			if (cart_database != null){
+				cart.setLineItems(cart_database.getLineItems());
+				cart.setUser(cart_database.getUser());
+				session.setAttribute("cart", cart);
+			}
+
 
 
 			request.getRequestDispatcher("/views/home.jsp").forward(request, response);
