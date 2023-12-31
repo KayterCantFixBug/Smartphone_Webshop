@@ -30,7 +30,7 @@
 									href="addToCart?product_id=${product.id}"
 							    </c:otherwise>
 							</c:choose>>
-							<img src="${product.image}" class="img-fluid product-thumbnail">
+							<img src="${product.image}" class="img-fluid product-thumbnail w-75 h-75">
 							<h3 class="product-title">${product.name }</h3> <strong
 							class="product-price">${product.priceCurrencyFormat}</strong> <span
 							class="icon-cross"> <img
